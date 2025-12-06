@@ -17,7 +17,6 @@
 package dev.atick.shorts
 
 import android.os.Bundle
-import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,14 +41,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("MainActivity onCreate")
-
-        val enabledServices = Settings.Secure.getString(
-            applicationContext.contentResolver,
-            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
-        )
-
-        Timber.d("---------------- Enabled Services --------------")
-        Timber.d(enabledServices)
 
         setContent {
             ShortsBlockerTheme {
