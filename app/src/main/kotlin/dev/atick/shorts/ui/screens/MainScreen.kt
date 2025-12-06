@@ -39,6 +39,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LoadingIndicator
@@ -106,14 +107,21 @@ fun MainScreen(
         }
     }
 
-    MainScreenContent(
-        isPermissionGranted = serviceState.isGranted,
-        trackedPackages = serviceState.trackedPackages,
-        onOpenSettings = { viewModel.openAccessibilitySettings(context) },
-        onPackageToggle = { packageName, enabled ->
-            viewModel.togglePackageTracking(packageName, enabled)
-        },
-    )
+    if (serviceState.showDisclosure) {
+        ProminentDisclosureScreen(
+            onAgree = { viewModel.acceptDisclosure(context) },
+            onCancel = { viewModel.hideDisclosure() },
+        )
+    } else {
+        MainScreenContent(
+            isPermissionGranted = serviceState.isGranted,
+            trackedPackages = serviceState.trackedPackages,
+            onOpenSettings = { viewModel.showDisclosure() },
+            onPackageToggle = { packageName, enabled ->
+                viewModel.togglePackageTracking(packageName, enabled)
+            },
+        )
+    }
 }
 
 /**
@@ -125,7 +133,7 @@ fun MainScreen(
  * @param isPermissionGranted Whether accessibility service permission is granted
  * @param modifier Modifier for the root composable
  * @param trackedPackages List of packages with their enabled status
- * @param onOpenSettings Callback when user taps to open accessibility settings
+ * @param onOpenSettings Callback when user taps to manage accessibility permission
  * @param onPackageToggle Callback when user toggles package blocking (packageName, enabled)
  */
 @Composable
@@ -151,6 +159,7 @@ fun MainScreenContent(
                 ServiceActiveContent(
                     trackedPackages = trackedPackages,
                     onPackageToggle = onPackageToggle,
+                    onManagePermission = onOpenSettings,
                 )
             } else {
                 SetupRequiredContent(
@@ -169,12 +178,14 @@ fun MainScreenContent(
  *
  * @param trackedPackages List of packages with their enabled status
  * @param onPackageToggle Callback when user toggles package blocking
+ * @param onManagePermission Callback when user wants to manage accessibility permission
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun ServiceActiveContent(
     trackedPackages: List<TrackedPackage> = emptyList(),
     onPackageToggle: (String, Boolean) -> Unit = { _, _ -> },
+    onManagePermission: () -> Unit = {},
 ) {
     AnimatedVisibility(
         visible = true,
@@ -266,6 +277,25 @@ private fun ServiceActiveContent(
                 packages = trackedPackages,
                 onPackageToggle = onPackageToggle,
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedButton(
+                onClick = onManagePermission,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Settings,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(
+                    text = "Manage Accessibility Permission",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
         }
     }
 }
