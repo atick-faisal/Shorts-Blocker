@@ -22,9 +22,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.atick.shorts.ui.screens.MainScreen
+import dev.atick.shorts.ui.screens.OnboardingScreen
+import dev.atick.shorts.ui.screens.ProminentDisclosureScreen
 import dev.atick.shorts.ui.theme.ShortsBlockerTheme
+import dev.atick.shorts.ui.viewmodels.MainViewModel
+import dev.atick.shorts.ui.viewmodels.OnboardingViewModel
 import timber.log.Timber
 
 /**
@@ -41,11 +49,41 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ShortsBlockerTheme {
+                val onboardingViewModel: OnboardingViewModel = viewModel()
+                val mainViewModel: MainViewModel = viewModel()
+                val context = LocalContext.current
+
+                val onboardingState by onboardingViewModel.state.collectAsState()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MainScreen()
+                    when {
+                        !onboardingState.isOnboardingCompleted -> {
+                            OnboardingScreen(
+                                onComplete = {
+                                    onboardingViewModel.completeOnboarding()
+                                },
+                            )
+                        }
+
+                        onboardingState.showDisclosure -> {
+                            ProminentDisclosureScreen(
+                                onAgree = {
+                                    mainViewModel.acceptDisclosure(context)
+                                    onboardingViewModel.hideDisclosure()
+                                },
+                                onCancel = {
+                                    onboardingViewModel.hideDisclosure()
+                                },
+                            )
+                        }
+
+                        else -> {
+                            MainScreen(viewModel = mainViewModel)
+                        }
+                    }
                 }
             }
         }
