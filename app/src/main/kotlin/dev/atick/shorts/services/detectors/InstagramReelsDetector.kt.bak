@@ -1,0 +1,264 @@
+/*
+ * Copyright 2025 Atick Faisal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package dev.atick.shorts.services.detectors
+
+import android.content.res.Resources
+import android.graphics.Rect
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
+import timber.log.Timber
+
+class InstagramReelsDetector : ShortFormContentDetector {
+
+    override fun getPackageName(): String = "com.instagram.android"
+
+    override fun isShortFormContent(
+        event: AccessibilityEvent,
+        rootNode: AccessibilityNodeInfo,
+        resources: Resources,
+    ): Boolean {
+        // Instagram uses clips_viewer for everything, so we need to be very specific
+        // Check if we're in the Reels tab/activity specifically
+        
+        val className = event.className?.toString()
+        Timber.v("[Instagram] Event className: $className")
+
+        // Check if this is specifically a Reels fragment/activity
+        val isReelsActivity = isInReelsActivity(rootNode, event)
+        
+        if (!isReelsActivity) {
+            Timber.v("[Instagram] Not in Reels activity/tab - allowing")
+            return false
+        }
+
+        // If we're in the Reels section, check for actual video playback
+        val hasActiveVideo = hasActiveVideoPlayback(rootNode)
+        
+        if (hasActiveVideo) {
+            Timber.i("[Instagram] ✓ User is actively watching Reels in Reels tab")
+            return true
+        } else {
+            Timber.v("[Instagram] ✗ In Reels tab but no active video playback")
+            return false
+        }
+    }
+
+    private fun isInReelsActivity(node: AccessibilityNodeInfo, event: AccessibilityEvent): Boolean {
+        // Method 1: Check for Reels tab indicator
+        val hasReelsTab = findNodeWithText(node, "Reels") != null
+        if (hasReelsTab) {
+            Timber.d("[Instagram] Found 'Reels' tab text - likely in Reels section")
+        }
+
+        // Method 2: Check for clips_tab or reels_tab in view hierarchy
+        val hasReelsTabId = hasViewIdPattern(node, listOf("clips_tab", "reels_tab", "clips_fragment"))
+        if (hasReelsTabId) {
+            Timber.d("[Instagram] Found Reels tab ID - in Reels section")
+        }
+
+        // Method 3: Check activity/fragment class name
+        val className = event.className?.toString() ?: ""
+        val isReelsClass = className.contains("Clips", ignoreCase = true) ||
+            className.contains("Reel", ignoreCase = true)
+        if (isReelsClass) {
+            Timber.d("[Instagram] Event className indicates Reels: $className")
+        }
+
+        val inReelsSection = hasReelsTab || hasReelsTabId || isReelsClass
+        Timber.v("[Instagram] isInReelsActivity = $inReelsSection (tab=$hasReelsTab, id=$hasReelsTabId, class=$isReelsClass)")
+        
+        return inReelsSection
+    }
+
+    private fun hasActiveVideoPlayback(node: AccessibilityNodeInfo): Boolean {
+        // Look for video player with playback indicators
+        val rect = Rect()
+        node.getBoundsInScreen(rect)
+
+        // Must be significant size
+        if (rect.height() < 500) {
+            return false
+        }
+
+        // Look for video playback indicators
+        val stack = ArrayDeque<AccessibilityNodeInfo>()
+        stack.add(node)
+        var foundVideoPlayback = 0
+        var nodesScanned = 0
+
+        while (stack.isNotEmpty() && nodesScanned < 50) {
+            val n = stack.removeFirst()
+            nodesScanned++
+
+            val id = n.viewIdResourceName
+            if (id != null) {
+                // Look for active video player components (not just containers)
+                if (id.contains("video_player", ignoreCase = true) ||
+                    id.contains("clips_video_player", ignoreCase = true) ||
+                    id.contains("media_view", ignoreCase = true)
+                ) {
+                    Timber.d("[Instagram] Active video player found: $id")
+                    foundVideoPlayback++
+                }
+            }
+
+            for (i in 0 until n.childCount) {
+                n.getChild(i)?.let { stack.add(it) }
+            }
+        }
+
+        return foundVideoPlayback > 0
+    }
+
+    private fun findNodeWithText(node: AccessibilityNodeInfo, searchText: String): AccessibilityNodeInfo? {
+        val stack = ArrayDeque<AccessibilityNodeInfo>()
+        stack.add(node)
+        var nodesScanned = 0
+
+        while (stack.isNotEmpty() && nodesScanned < 100) {
+            val n = stack.removeFirst()
+            nodesScanned++
+
+            val text = n.text?.toString()
+            if (text != null && text.equals(searchText, ignoreCase = true)) {
+                return n
+            }
+
+            val desc = n.contentDescription?.toString()
+            if (desc != null && desc.contains(searchText, ignoreCase = true)) {
+                return n
+            }
+
+            for (i in 0 until n.childCount) {
+                n.getChild(i)?.let { stack.add(it) }
+            }
+        }
+
+        return null
+    }
+
+    private fun hasViewIdPattern(node: AccessibilityNodeInfo, patterns: List<String>): Boolean {
+        val stack = ArrayDeque<AccessibilityNodeInfo>()
+        stack.add(node)
+        var nodesScanned = 0
+
+        while (stack.isNotEmpty() && nodesScanned < 100) {
+            val n = stack.removeFirst()
+            nodesScanned++
+
+            val id = n.viewIdResourceName
+            if (id != null) {
+                for (pattern in patterns) {
+                    if (id.contains(pattern, ignoreCase = true)) {
+                        Timber.d("[Instagram] Found view ID pattern: $id")
+                        return true
+                    }
+                }
+            }
+
+            for (i in 0 until n.childCount) {
+                n.getChild(i)?.let { stack.add(it) }
+            }
+        }
+
+        return false
+    }
+
+    private fun hasReelsUIElements(node: AccessibilityNodeInfo): Boolean {
+        val stack = ArrayDeque<AccessibilityNodeInfo>()
+        stack.add(node)
+        var nodesScanned = 0
+        var foundReelsElements = 0
+
+        // Reels-specific UI component IDs
+        val reelsUIIds = listOf(
+            "reel_viewer",
+            "clips_viewer",
+            "clips_player",
+            "clips_video",
+            "clips_audio",
+            "clips_like",
+            "clips_comment",
+            "clips_share",
+            "reel_dyn",
+            "video_view",
+        )
+
+        // Exclude these - indicate other content types
+        val excludedIds = listOf(
+            "story",
+            "feed_photo",
+            "carousel",
+            "profile",
+            "explore_grid",
+        )
+
+        while (stack.isNotEmpty()) {
+            val n = stack.removeFirst()
+            nodesScanned++
+
+            if (nodesScanned > 100) break
+
+            val id = n.viewIdResourceName
+            if (id != null) {
+                // Skip excluded patterns
+                var isExcluded = false
+                for (excluded in excludedIds) {
+                    if (id.contains(excluded, ignoreCase = true)) {
+                        isExcluded = true
+                        break
+                    }
+                }
+
+                if (!isExcluded) {
+                    // Look for Reels UI components
+                    for (reelsId in reelsUIIds) {
+                        if (id.contains(reelsId, ignoreCase = true)) {
+                            Timber.d("[Instagram] Reels UI component found: $id")
+                            foundReelsElements++
+                        }
+                    }
+                }
+            }
+
+            // Check content descriptions for Reels indicators
+            val desc = n.contentDescription?.toString()
+            if (!desc.isNullOrBlank() && desc.length > 10) {
+                if ((desc.contains("Reel", true) || desc.contains("clip", true)) &&
+                    (desc.contains("video", true) || desc.contains("playing", true))
+                ) {
+                    Timber.d("[Instagram] Reels description found: $desc")
+                    foundReelsElements++
+                }
+
+                // Instagram-specific action buttons
+                if (desc.contains("Like", true) && desc.contains("Reel", true)) {
+                    Timber.d("[Instagram] Reels like button found")
+                    foundReelsElements++
+                }
+            }
+
+            for (i in 0 until n.childCount) {
+                n.getChild(i)?.let { stack.add(it) }
+            }
+        }
+
+        val hasElements = foundReelsElements > 0
+        Timber.v("[Instagram] Scanned $nodesScanned nodes, found $foundReelsElements Reels UI elements")
+        return hasElements
+    }
+}
