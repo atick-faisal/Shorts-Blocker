@@ -1181,12 +1181,12 @@
 <li>Let Gradle sync (takes a few minutes first time)</li>
 </ol>
 <h3 id="3-build-and-run">3. Build and Run</h3>
-<p><strong>Debug Build:</strong>
+<p><strong>Debug Build:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./gradlew<span class="w"> </span>assembleDebug
-</span></code></pre></div></p>
-<p><strong>Run on Device/Emulator:</strong>
+</span></code></pre></div>
+<p><strong>Run on Device/Emulator:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./gradlew<span class="w"> </span>installDebug
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>Or use Android Studio's Run button (▶️).</p>
 <h2 id="project-structure">Project Structure</h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Shorts-Blocker/
@@ -1224,10 +1224,12 @@
 <h3 id="detectors">Detectors</h3>
 <p>Platform-specific logic to identify short-form content.</p>
 <p><strong>Interface:</strong> <code>ShortFormContentDetector.kt</code></p>
-<p>Each detector implements:
-- <code>isShortFormContent()</code> - Detection logic
-- <code>getPackageName()</code> - Target app package</p>
-<p><strong>Example - YouTube:</strong>
+<p>Each detector implements:</p>
+<ul>
+<li><code>isShortFormContent()</code> - Detection logic</li>
+<li><code>getPackageName()</code> - Target app package</li>
+</ul>
+<p><strong>Example - YouTube:</strong></p>
 <div class="language-kotlin highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">class</span><span class="w"> </span><span class="nc">YouTubeShortsDetector</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ShortFormContentDetector</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">isShortFormContent</span><span class="p">(</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">AccessibilityEvent</span><span class="p">,</span>
@@ -1239,7 +1241,7 @@
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="c1">// Return true if detected</span>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="ui-layer">UI Layer</h3>
 <p>Modern Jetpack Compose with Material 3.</p>
 <ul>
@@ -1300,18 +1302,22 @@
 <p>Enable verbose logging and use Logcat:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;(Shorts-Blocker|ShortForm|Detector)&quot;</span>
 </span></code></pre></div>
-<p>Look for:
-- Event types received
-- UI elements detected
-- Detection results</p>
+<p>Look for:</p>
+<ul>
+<li>Event types received</li>
+<li>UI elements detected</li>
+<li>Detection results</li>
+</ul>
 <h3 id="debug-accessibility-service">Debug Accessibility Service</h3>
-<p><strong>Check if service is running:</strong>
+<p><strong>Check if service is running:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>get<span class="w"> </span>secure<span class="w"> </span>enabled_accessibility_services
-</span></code></pre></div></p>
-<p><strong>Force restart service:</strong>
-1. Disable in accessibility settings
-2. Re-enable
-3. Check logs</p>
+</span></code></pre></div>
+<p><strong>Force restart service:</strong></p>
+<ol>
+<li>Disable in accessibility settings</li>
+<li>Re-enable</li>
+<li>Check logs</li>
+</ol>
 <h2 id="building-for-release">Building for Release</h2>
 <h3 id="1-create-keystore">1. Create Keystore</h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>keytool<span class="w"> </span>-genkey<span class="w"> </span>-v<span class="w"> </span>-keystore<span class="w"> </span>key.jks<span class="w"> </span>-keyalg<span class="w"> </span>RSA<span class="w"> </span>-keysize<span class="w"> </span><span class="m">2048</span><span class="w"> </span>-validity<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-alias<span class="w"> </span>shorts-blocker
@@ -1328,17 +1334,21 @@
 <p>APK will be in: <code>app/build/outputs/apk/release/</code></p>
 <h2 id="development-tips">Development Tips</h2>
 <h3 id="hot-reload-isnt-enough">Hot Reload Isn't Enough</h3>
-<p>Accessibility services don't hot reload. After code changes:
-1. Build and install
-2. Disable service in settings
-3. Re-enable service
-4. Test</p>
+<p>Accessibility services don't hot reload. After code changes:</p>
+<ol>
+<li>Build and install</li>
+<li>Disable service in settings</li>
+<li>Re-enable service</li>
+<li>Test</li>
+</ol>
 <h3 id="use-layout-inspector">Use Layout Inspector</h3>
 <p>Android Studio &gt; Tools &gt; Layout Inspector</p>
-<p>Helps identify:
-- View IDs to target
-- UI hierarchy
-- Element properties</p>
+<p>Helps identify:</p>
+<ul>
+<li>View IDs to target</li>
+<li>UI hierarchy</li>
+<li>Element properties</li>
+</ul>
 <h3 id="timber-logging">Timber Logging</h3>
 <p>The app uses Timber for logging (debug builds only):</p>
 <div class="language-kotlin highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;Debug message&quot;</span><span class="p">)</span>
@@ -1347,39 +1357,32 @@
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">Timber</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Error message&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="test-on-real-device">Test on Real Device</h3>
-<p>Emulators don't have the target apps. Test on:
-- Real device with YouTube/Instagram installed
-- Different Android versions
-- Different screen sizes</p>
+<p>Emulators don't have the target apps. Test on:</p>
+<ul>
+<li>Real device with YouTube/Instagram installed</li>
+<li>Different Android versions</li>
+<li>Different screen sizes</li>
+</ul>
 <h2 id="architecture-overview">Architecture Overview</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>┌─────────────────┐
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>│   MainActivity  │
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>│   (Compose UI)  │
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>└────────┬────────┘
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>         │
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>         ▼
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>┌─────────────────┐
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>│  MainViewModel  │
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>│  (State Mgmt)   │
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>└────────┬────────┘
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>         │
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>         ▼
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>┌──────────────────────────────┐
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>│  UserPreferencesProvider     │
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>│  (DataStore - Preferences)   │
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>└──────────────────────────────┘
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>┌──────────────────────────────┐
-</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>│  ShortFormContentBlockerService  │ ◄── Accessibility Events
-</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>│  (Background Service)            │
-</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>└────────┬─────────────────────┘
-</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>         │
-</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>         ▼
-</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>┌─────────────────┐
-</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>│    Detectors    │
-</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>│  (YouTube, IG)  │
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>└─────────────────┘
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TB
+    subgraph UI
+        A[MainActivity\nCompose UI]
+        B[MainViewModel\nState Mgmt]
+    end
+
+    subgraph Data
+        C[UserPreferencesProvider\nDataStore - Preferences]
+    end
+
+    subgraph Service
+        D[ShortFormContentBlockerService\nBackground Service]
+        E[Detectors\nYouTube, IG]
+    end
+
+    A --&gt; B
+    B --&gt; C
+    D --&gt; E
+    D &lt;-- Accessibility Events --&gt; E</code></pre>
 <h2 id="contributing-guidelines">Contributing Guidelines</h2>
 <ol>
 <li><strong>Keep it simple</strong> - No unnecessary complexity</li>
@@ -1401,40 +1404,46 @@
 <li>[ ] No new lint warnings</li>
 </ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
-<p><strong>Gradle sync fails:</strong>
-- Check JDK version (need 17+)
-- Invalidate caches: File &gt; Invalidate Caches &gt; Invalidate and Restart</p>
-<p><strong>Service not detecting:</strong>
-- Check service is enabled in settings
-- Verify package name is correct
-- Check Logcat for errors
-- Try disable/enable service</p>
-<p><strong>Build succeeds but app crashes:</strong>
-- Check ProGuard rules if release build
-- Look for ClassNotFoundException in logs
-- Verify all resources are included</p>
-<p><strong>Can't install APK:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>adb<span class="w"> </span>uninstall<span class="w"> </span>dev.atick.shorts
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>adb<span class="w"> </span>install<span class="w"> </span>app/build/outputs/apk/debug/app-debug.apk
-</span></code></pre></div></p>
+<p><strong>Gradle sync fails:</strong></p>
+<ul>
+<li>Check JDK version (need 17+)</li>
+<li>Invalidate caches: File &gt; Invalidate Caches &gt; Invalidate and Restart</li>
+</ul>
+<p><strong>Service not detecting:</strong></p>
+<ul>
+<li>Check service is enabled in settings</li>
+<li>Verify package name is correct</li>
+<li>Check Logcat for errors</li>
+<li>Try disable/enable service</li>
+</ul>
+<p><strong>Build succeeds but app crashes:</strong></p>
+<ul>
+<li>Check ProGuard rules if release build</li>
+<li>Look for ClassNotFoundException in logs</li>
+<li>Verify all resources are included</li>
+</ul>
+<p><strong>Can't install APK:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>adb<span class="w"> </span>uninstall<span class="w"> </span>dev.atick.shorts
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>adb<span class="w"> </span>install<span class="w"> </span>app/build/outputs/apk/debug/app-debug.apk
+</span></code></pre></div>
 <h2 id="useful-commands">Useful Commands</h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Clean build</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>./gradlew<span class="w"> </span>clean
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># List all tasks</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>./gradlew<span class="w"> </span>tasks
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Build both debug and release</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>./gradlew<span class="w"> </span>build
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="c1"># Install and run debug</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>./gradlew<span class="w"> </span>installDebug<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>dev.atick.shorts/.MainActivity
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
-</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="c1"># View logs</span>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Shorts-Blocker
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
-</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="c1"># Check APK size</span>
-</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>ls<span class="w"> </span>-lh<span class="w"> </span>app/build/outputs/apk/release/*.apk
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Clean build</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>./gradlew<span class="w"> </span>clean
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># List all tasks</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>./gradlew<span class="w"> </span>tasks
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Build both debug and release</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>./gradlew<span class="w"> </span>build
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1"># Install and run debug</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>./gradlew<span class="w"> </span>installDebug<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>dev.atick.shorts/.MainActivity
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="c1"># View logs</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Shorts-Blocker
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="c1"># Check APK size</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>ls<span class="w"> </span>-lh<span class="w"> </span>app/build/outputs/apk/release/*.apk
 </span></code></pre></div>
 <h2 id="resources">Resources</h2>
 <ul>
