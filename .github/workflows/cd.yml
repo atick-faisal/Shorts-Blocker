@@ -105,54 +105,54 @@ jobs:
           body_path: CHANGELOG.md
           files: ./apk/*.apk
 
-  play-store-release:
-    name: ☁️ Deploy to Play Store
-    needs: build  # Runs only if the APK build is successful ✅
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout Repository
-        uses: actions/checkout@v5
-
-      - name: 🏗️ Set up JDK 21
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: 💎 Setup Ruby & Bundler
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.0
-          bundler-cache: true
-
-      - name: 📜 Set up Google Services
-        run: |
-          touch app/google-services.json
-          echo "${CONTENT// /}" | base64 --decode > app/google-services.json
-        env:
-          CONTENT: ${{ secrets.GOOGLE_SERVICES }}
-
-      - name: 🔑 Set up Signing Key
-        run: |
-          touch app/key.jks
-          echo "${KEYSTORE// /}" | base64 --decode > app/key.jks
-          touch keystore.properties
-          echo "${KEYSTORE_PROPERTIES// /}" | base64 --decode > keystore.properties
-        env:
-          KEYSTORE: ${{ secrets.KEYSTORE }}
-          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
-
-      - name: 🔐 Set up Local Properties
-        run: |
-          touch local.properties
-          echo "GOOGLE_WEB_CLIENT_ID=$GOOGLE_WEB_CLIENT_ID" >> local.properties
-        env:
-          GOOGLE_WEB_CLIENT_ID: ${{ secrets.GOOGLE_WEB_CLIENT_ID }}
-
-      - name: ☁️ Upload to Play Store
-        run: |
-          echo "${PLAY_STORE_JSON// /}" | base64 --decode > fastlane/play-store.json
-          bundle exec fastlane android deploy
-        env:
-          PLAY_STORE_JSON: ${{ secrets.PLAY_STORE_JSON }}
+#  play-store-release:
+#    name: ☁️ Deploy to Play Store
+#    needs: build  # Runs only if the APK build is successful ✅
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: ⬇️ Checkout Repository
+#        uses: actions/checkout@v5
+#
+#      - name: 🏗️ Set up JDK 21
+#        uses: actions/setup-java@v5
+#        with:
+#          java-version: 21
+#          distribution: 'temurin'
+#          cache: gradle
+#
+#      - name: 💎 Setup Ruby & Bundler
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: 3.0
+#          bundler-cache: true
+#
+#      - name: 📜 Set up Google Services
+#        run: |
+#          touch app/google-services.json
+#          echo "${CONTENT// /}" | base64 --decode > app/google-services.json
+#        env:
+#          CONTENT: ${{ secrets.GOOGLE_SERVICES }}
+#
+#      - name: 🔑 Set up Signing Key
+#        run: |
+#          touch app/key.jks
+#          echo "${KEYSTORE// /}" | base64 --decode > app/key.jks
+#          touch keystore.properties
+#          echo "${KEYSTORE_PROPERTIES// /}" | base64 --decode > keystore.properties
+#        env:
+#          KEYSTORE: ${{ secrets.KEYSTORE }}
+#          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+#
+#      - name: 🔐 Set up Local Properties
+#        run: |
+#          touch local.properties
+#          echo "GOOGLE_WEB_CLIENT_ID=$GOOGLE_WEB_CLIENT_ID" >> local.properties
+#        env:
+#          GOOGLE_WEB_CLIENT_ID: ${{ secrets.GOOGLE_WEB_CLIENT_ID }}
+#
+#      - name: ☁️ Upload to Play Store
+#        run: |
+#          echo "${PLAY_STORE_JSON// /}" | base64 --decode > fastlane/play-store.json
+#          bundle exec fastlane android deploy
+#        env:
+#          PLAY_STORE_JSON: ${{ secrets.PLAY_STORE_JSON }}
