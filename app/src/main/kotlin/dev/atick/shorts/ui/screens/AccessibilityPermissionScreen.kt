@@ -72,7 +72,11 @@ fun AccessibilityPermissionScreen(
     AccessibilityPermissionContent(
         modifier = modifier,
         isPermissionGranted = permissionState.isGranted,
+        trackedPackages = permissionState.trackedPackages,
         onOpenSettings = { viewModel.openAccessibilitySettings() },
+        onPackageToggle = { packageName, enabled ->
+            viewModel.togglePackageTracking(packageName, enabled)
+        },
     )
 }
 
@@ -84,7 +88,9 @@ fun AccessibilityPermissionScreen(
 fun AccessibilityPermissionContent(
     modifier: Modifier = Modifier,
     isPermissionGranted: Boolean,
+    trackedPackages: List<dev.atick.shorts.models.TrackedPackage> = emptyList(),
     onOpenSettings: () -> Unit,
+    onPackageToggle: (String, Boolean) -> Unit = { _, _ -> },
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -98,7 +104,10 @@ fun AccessibilityPermissionContent(
             verticalArrangement = Arrangement.Center,
         ) {
             if (isPermissionGranted) {
-                PermissionGrantedContent()
+                PermissionGrantedContent(
+                    trackedPackages = trackedPackages,
+                    onPackageToggle = onPackageToggle,
+                )
             } else {
                 PermissionRequiredContent(
                     onOpenSettings = onOpenSettings,
@@ -110,7 +119,10 @@ fun AccessibilityPermissionContent(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun PermissionGrantedContent() {
+private fun PermissionGrantedContent(
+    trackedPackages: List<dev.atick.shorts.models.TrackedPackage> = emptyList(),
+    onPackageToggle: (String, Boolean) -> Unit = { _, _ -> },
+) {
     AnimatedVisibility(
         visible = true,
         enter = fadeIn() + scaleIn(),
@@ -189,11 +201,18 @@ private fun PermissionGrantedContent() {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     InfoRow(
-                        title = "Target",
-                        value = "YouTube Shorts",
+                        title = "Tracked Apps",
+                        value = trackedPackages.count { it.isEnabled }.toString(),
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            dev.atick.shorts.ui.components.TrackedPackagesSection(
+                packages = trackedPackages,
+                onPackageToggle = onPackageToggle,
+            )
         }
     }
 }
@@ -389,6 +408,20 @@ private fun PermissionGrantedPreview() {
     MaterialTheme {
         AccessibilityPermissionContent(
             isPermissionGranted = true,
+            trackedPackages = listOf(
+                dev.atick.shorts.models.TrackedPackage(
+                    packageName = "com.google.android.youtube",
+                    displayName = "YouTube",
+                    description = "Block YouTube Shorts",
+                    isEnabled = true,
+                ),
+                dev.atick.shorts.models.TrackedPackage(
+                    packageName = "com.instagram.android",
+                    displayName = "Instagram",
+                    description = "Block Instagram Reels",
+                    isEnabled = false,
+                ),
+            ),
             onOpenSettings = {},
         )
     }
