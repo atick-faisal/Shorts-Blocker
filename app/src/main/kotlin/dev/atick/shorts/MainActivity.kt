@@ -33,6 +33,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.atick.shorts.ui.screens.MainScreenContent
 import dev.atick.shorts.ui.theme.ShortsBlockerTheme
+import dev.atick.shorts.ui.viewmodels.MainViewModel
 import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
@@ -64,8 +65,9 @@ class MainActivity : ComponentActivity() {
  * This ensures service status is rechecked when the app resumes.
  */
 @Composable
-private fun MainScreenWithLifecycle(viewModel: MainViewModel = viewModel()) {
+private fun MainScreenWithLifecycle() {
     val lifecycleOwner = LocalLifecycleOwner.current
+    val viewModel: MainViewModel = viewModel()
     val serviceState by viewModel.serviceState.collectAsState()
 
     DisposableEffect(lifecycleOwner) {
