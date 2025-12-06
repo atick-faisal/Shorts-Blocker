@@ -28,11 +28,13 @@ cd Shorts-Blocker
 ### 3. Build and Run
 
 **Debug Build:**
+
 ```bash
 ./gradlew assembleDebug
 ```
 
 **Run on Device/Emulator:**
+
 ```bash
 ./gradlew installDebug
 ```
@@ -85,10 +87,12 @@ Platform-specific logic to identify short-form content.
 **Interface:** `ShortFormContentDetector.kt`
 
 Each detector implements:
+
 - `isShortFormContent()` - Detection logic
 - `getPackageName()` - Target app package
 
 **Example - YouTube:**
+
 ```kotlin
 class YouTubeShortsDetector : ShortFormContentDetector {
     override fun isShortFormContent(
@@ -122,7 +126,7 @@ Create `NewAppDetector.kt` in `services/detectors/`:
 ```kotlin
 class NewAppDetector : ShortFormContentDetector {
     override fun getPackageName() = "com.newapp.android"
-    
+
     override fun isShortFormContent(
         event: AccessibilityEvent,
         rootNode: AccessibilityNodeInfo,
@@ -178,6 +182,7 @@ adb logcat | grep -E "(Shorts-Blocker|ShortForm|Detector)"
 ```
 
 Look for:
+
 - Event types received
 - UI elements detected
 - Detection results
@@ -185,11 +190,13 @@ Look for:
 ### Debug Accessibility Service
 
 **Check if service is running:**
+
 ```bash
 adb shell settings get secure enabled_accessibility_services
 ```
 
 **Force restart service:**
+
 1. Disable in accessibility settings
 2. Re-enable
 3. Check logs
@@ -224,6 +231,7 @@ APK will be in: `app/build/outputs/apk/release/`
 ### Hot Reload Isn't Enough
 
 Accessibility services don't hot reload. After code changes:
+
 1. Build and install
 2. Disable service in settings
 3. Re-enable service
@@ -234,6 +242,7 @@ Accessibility services don't hot reload. After code changes:
 Android Studio > Tools > Layout Inspector
 
 Helps identify:
+
 - View IDs to target
 - UI hierarchy
 - Element properties
@@ -252,40 +261,33 @@ Timber.e("Error message")
 ### Test on Real Device
 
 Emulators don't have the target apps. Test on:
+
 - Real device with YouTube/Instagram installed
 - Different Android versions
 - Different screen sizes
 
 ## Architecture Overview
 
-```
-┌─────────────────┐
-│   MainActivity  │
-│   (Compose UI)  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  MainViewModel  │
-│  (State Mgmt)   │
-└────────┬────────┘
-         │
-         ▼
-┌──────────────────────────────┐
-│  UserPreferencesProvider     │
-│  (DataStore - Preferences)   │
-└──────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph UI
+        A[MainActivity\nCompose UI]
+        B[MainViewModel\nState Mgmt]
+    end
 
-┌──────────────────────────────┐
-│  ShortFormContentBlockerService  │ ◄── Accessibility Events
-│  (Background Service)            │
-└────────┬─────────────────────┘
-         │
-         ▼
-┌─────────────────┐
-│    Detectors    │
-│  (YouTube, IG)  │
-└─────────────────┘
+    subgraph Data
+        C[UserPreferencesProvider\nDataStore - Preferences]
+    end
+
+    subgraph Service
+        D[ShortFormContentBlockerService\nBackground Service]
+        E[Detectors\nYouTube, IG]
+    end
+
+    A --> B
+    B --> C
+    D --> E
+    D <-- Accessibility Events --> E
 ```
 
 ## Contributing Guidelines
@@ -312,21 +314,25 @@ Before submitting PR:
 ## Troubleshooting
 
 **Gradle sync fails:**
+
 - Check JDK version (need 17+)
 - Invalidate caches: File > Invalidate Caches > Invalidate and Restart
 
 **Service not detecting:**
+
 - Check service is enabled in settings
 - Verify package name is correct
 - Check Logcat for errors
 - Try disable/enable service
 
 **Build succeeds but app crashes:**
+
 - Check ProGuard rules if release build
 - Look for ClassNotFoundException in logs
 - Verify all resources are included
 
 **Can't install APK:**
+
 ```bash
 adb uninstall dev.atick.shorts
 adb install app/build/outputs/apk/debug/app-debug.apk
