@@ -19,7 +19,9 @@ package dev.atick.shorts.ui.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import dev.atick.shorts.models.TrackedPackage
 import dev.atick.shorts.utils.AccessibilityPermissionManager
+import dev.atick.shorts.utils.UserPreferencesProvider
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,6 +33,7 @@ import timber.log.Timber
 data class PermissionState(
     val isGranted: Boolean = false,
     val isChecking: Boolean = false,
+    val trackedPackages: List<TrackedPackage> = emptyList(),
 )
 
 class AccessibilityPermissionViewModel(
@@ -42,6 +45,8 @@ class AccessibilityPermissionViewModel(
             "dev.atick.shorts/dev.atick.shorts.services.ShortsAccessibilityService"
     }
 
+    private val userPreferencesProvider = UserPreferencesProvider(application)
+
     private val _permissionState = MutableStateFlow(PermissionState())
     val permissionState: StateFlow<PermissionState> = _permissionState.asStateFlow()
 
@@ -49,7 +54,24 @@ class AccessibilityPermissionViewModel(
 
     init {
         Timber.d("AccessibilityPermissionViewModel initialized")
+        initializePreferences()
         checkPermission()
+        observeTrackedPackages()
+    }
+
+    private fun initializePreferences() {
+        viewModelScope.launch {
+            userPreferencesProvider.initializeDefaultPackages()
+        }
+    }
+
+    private fun observeTrackedPackages() {
+        viewModelScope.launch {
+            userPreferencesProvider.getTrackedPackagesWithStatus().collect { packages ->
+                Timber.d("Tracked packages updated: ${packages.filter { it.isEnabled }.map { it.displayName }}")
+                _permissionState.value = _permissionState.value.copy(trackedPackages = packages)
+            }
+        }
     }
 
     /**
@@ -128,6 +150,16 @@ class AccessibilityPermissionViewModel(
     fun onResume() {
         Timber.d("ViewModel onResume - checking permission")
         checkPermission()
+    }
+
+    /**
+     * Toggle tracking for a specific package.
+     */
+    fun togglePackageTracking(packageName: String, enabled: Boolean) {
+        Timber.i("Toggling package tracking: $packageName -> $enabled")
+        viewModelScope.launch {
+            userPreferencesProvider.togglePackage(packageName, enabled)
+        }
     }
 
     override fun onCleared() {
