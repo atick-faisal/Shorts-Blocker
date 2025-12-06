@@ -36,7 +36,7 @@ class ShortFormContentBlockerService : AccessibilityService() {
 
     private val lastActionTimestamps = ConcurrentHashMap<String, Long>()
     private val actionCooldownMillis = 1500L
-    private val userPreferencesProvider = UserPreferencesProvider(applicationContext)
+    private val userPreferencesProvider by lazy { UserPreferencesProvider(applicationContext) }
 
     override fun onServiceConnected() {
         Timber.d("ShortFormContentBlockerService connected")
@@ -45,11 +45,11 @@ class ShortFormContentBlockerService : AccessibilityService() {
             val packages = userPreferencesProvider.getTrackedPackages().first()
             val info = AccessibilityServiceInfo().apply {
                 eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED or
-                    AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED or
-                    AccessibilityEvent.TYPE_VIEW_SCROLLED
+                        AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED or
+                        AccessibilityEvent.TYPE_VIEW_SCROLLED
                 feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
                 flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS or
-                    AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+                        AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
                 packageNames = packages.toTypedArray()
                 notificationTimeout = 100
             }
@@ -66,9 +66,15 @@ class ShortFormContentBlockerService : AccessibilityService() {
         val windows = windows
         Timber.v("Inspecting ${windows.size} windows")
         for (win in windows) {
+            // Only process focused application windows
+            if (!win.isFocused || !win.isActive) {
+                Timber.v("Skipping non-focused/inactive window")
+                continue
+            }
+
             val root = win.root ?: continue
             if (isShortFormContent(root)) {
-                Timber.i("Short-form content detected")
+                Timber.i("Short-form content detected in full-screen mode")
                 val key = "content_detected"
                 if (shouldPerformAction(key)) {
                     handleShortFormContentDetected(root)
@@ -85,97 +91,156 @@ class ShortFormContentBlockerService : AccessibilityService() {
     }
 
     private fun isShortFormContent(node: AccessibilityNodeInfo): Boolean {
-        var hasShortIndicator = false
-        var hasVerticalVideo = false
+        var hasPlayerIndicator = false
+        var isFullScreen = false
+        var hasPlayerControls = false
 
-        // 1) check view-id patterns for shorts/reels player container
-        val viewId = node.viewIdResourceName
-        if (viewId != null && (
-                viewId.contains("shorts", ignoreCase = true) ||
-                    viewId.contains("reel", ignoreCase = true) ||
-                    viewId.contains("short_player", ignoreCase = true) ||
-                    viewId.contains("clips", ignoreCase = true)
-                )
-        ) {
-            Timber.d("Short-form content indicator found in view ID: $viewId")
-            hasShortIndicator = true
-        }
-
-        // 2) Check for structural heuristic: vertical video container (height >> width)
+        // Get screen bounds for full-screen verification
         val rect = Rect()
         node.getBoundsInScreen(rect)
-        val aspect = if (rect.width() == 0) 0f else rect.height().toFloat() / rect.width()
+        
+        // Get display metrics for comparison
+        val displayMetrics = resources.displayMetrics
+        val screenHeight = displayMetrics.heightPixels
+        val screenWidth = displayMetrics.widthPixels
+        
+        Timber.v("Container bounds: ${rect.width()}x${rect.height()}, Screen: ${screenWidth}x${screenHeight}")
 
-        if (aspect > 1.7f && rect.height() > 800) {
-            Timber.v("Vertical container found with aspect ratio: $aspect, height: ${rect.height()}")
-            hasVerticalVideo = true
+        // 1) Exclude small containers (thumbnails, shelf items)
+        if (rect.height() < 400 || rect.width() < 300) {
+            Timber.v("Container too small, likely thumbnail - skipping")
+            return false
+        }
 
-            if (hasShortFormUiPattern(node)) {
-                Timber.d("Short-form content UI pattern confirmed in vertical container")
-                hasShortIndicator = true
+        // 2) Check view-id patterns, but EXCLUDE shelf/grid/chip patterns
+        val viewId = node.viewIdResourceName
+        if (viewId != null) {
+            // Exclude shelf, grid, thumbnails, chips
+            if (viewId.contains("shelf", ignoreCase = true) ||
+                viewId.contains("grid", ignoreCase = true) ||
+                viewId.contains("chip", ignoreCase = true) ||
+                viewId.contains("thumbnail", ignoreCase = true) ||
+                viewId.contains("preview", ignoreCase = true)
+            ) {
+                Timber.d("Excluded pattern found in view ID: $viewId - not full-screen player")
+                return false
+            }
+
+            // Look for actual player IDs
+            if (viewId.contains("shorts_player", ignoreCase = true) ||
+                viewId.contains("reel_player", ignoreCase = true) ||
+                viewId.contains("shorts_video", ignoreCase = true) ||
+                viewId.contains("reel_video_player", ignoreCase = true)
+            ) {
+                Timber.d("Player indicator found in view ID: $viewId")
+                hasPlayerIndicator = true
             }
         }
 
-        // Require BOTH vertical video layout AND short-form content indicators
-        val isShortFormContent = hasVerticalVideo && hasShortIndicator
-
-        if (isShortFormContent) {
-            Timber.i("Short-form content screen confirmed with both indicators")
+        // 3) Check for full-screen: container must cover at least 85% of screen height
+        val heightCoverage = rect.height().toFloat() / screenHeight
+        val aspect = if (rect.width() == 0) 0f else rect.height().toFloat() / rect.width()
+        
+        if (heightCoverage >= 0.85f && aspect > 1.5f) {
+            Timber.d("Full-screen container detected: height coverage=${heightCoverage * 100}%, aspect=$aspect")
+            isFullScreen = true
         } else {
-            Timber.v("Not short-form content: hasVerticalVideo=$hasVerticalVideo, hasShortIndicator=$hasShortIndicator")
+            Timber.v("Not full-screen: height coverage=${heightCoverage * 100}%, aspect=$aspect")
         }
 
-        return isShortFormContent
+        // 4) Look for video player controls (stronger indicator)
+        if (isFullScreen && hasVideoPlayerControls(node)) {
+            Timber.d("Video player controls detected in full-screen container")
+            hasPlayerControls = true
+            hasPlayerIndicator = true // Strong indicator
+        }
+
+        // 5) Require FULL-SCREEN + (PLAYER_INDICATOR or PLAYER_CONTROLS)
+        val isActuallyWatchingShorts = isFullScreen && (hasPlayerIndicator || hasPlayerControls)
+
+        if (isActuallyWatchingShorts) {
+            Timber.i("✓ User is actively watching short-form content in full-screen")
+        } else {
+            Timber.v("✗ Not watching shorts: fullScreen=$isFullScreen, playerIndicator=$hasPlayerIndicator, controls=$hasPlayerControls")
+        }
+
+        return isActuallyWatchingShorts
     }
 
-    private fun hasShortFormUiPattern(node: AccessibilityNodeInfo): Boolean {
+    private fun hasVideoPlayerControls(node: AccessibilityNodeInfo): Boolean {
         val stack = ArrayDeque<AccessibilityNodeInfo>()
         stack.add(node)
         var nodesScanned = 0
-        var foundShortFormIndicators = 0
+        var foundPlayerControls = 0
 
-        // Look for short-form content player elements (Shorts, Reels, etc.)
-        val shortFormPlayerIds = listOf(
-            "shorts_player",
-            "reel_player",
-            "shorts_video",
-            "reel_video_player",
-            "reel_dyn_remix",
-            "shorts_comment",
-            "shorts_like_button",
-            "reel_pivot_button",
-            "clips_viewer",
-            "clips_player",
+        // Look for actual video player controls (more specific than just "shorts" in ID)
+        val playerControlIds = listOf(
+            "player_control", // Generic player controls
+            "play_pause", // Play/pause button
+            "progress", "seek", "seekbar", // Video progress/seek bar
+            "video_surface", // Video rendering surface
+            "exo_player", // ExoPlayer components
+            "media_controller", // Media controller
+        )
+
+        // Exclude these - they indicate shelf/grid, not active player
+        val excludedIds = listOf(
+            "shelf",
+            "grid",
+            "chip",
+            "tab",
+            "thumbnail",
+            "preview",
+            "feed",
+            "recycler",
         )
 
         while (stack.isNotEmpty()) {
             val n = stack.removeFirst()
             nodesScanned++
 
-            if (nodesScanned > 100) break
+            // Limit scan depth
+            if (nodesScanned > 80) break
 
             val id = n.viewIdResourceName
             if (id != null) {
-                for (playerId in shortFormPlayerIds) {
-                    if (id.contains(playerId, ignoreCase = true)) {
-                        Timber.d("Short-form content player component found: $id")
-                        foundShortFormIndicators++
+                // Skip if it's part of excluded patterns
+                var isExcluded = false
+                for (excluded in excludedIds) {
+                    if (id.contains(excluded, ignoreCase = true)) {
+                        isExcluded = true
+                        break
+                    }
+                }
+
+                if (!isExcluded) {
+                    // Look for player controls
+                    for (controlId in playerControlIds) {
+                        if (id.contains(controlId, ignoreCase = true)) {
+                            Timber.d("Player control found: $id")
+                            foundPlayerControls++
+                        }
+                    }
+
+                    // Look for shorts-specific player components (not shelf)
+                    if (id.contains("shorts_player", ignoreCase = true) ||
+                        id.contains("reel_player", ignoreCase = true) ||
+                        id.contains("shorts_video", ignoreCase = true)
+                    ) {
+                        Timber.d("Shorts player component found: $id")
+                        foundPlayerControls++
                     }
                 }
             }
 
+            // Check for video playback state indicators in content description
             val desc = n.contentDescription?.toString()
-            if (!desc.isNullOrBlank() && desc.length > 20) {
-                if ((desc.contains("Shorts", true) || desc.contains("Reel", true)) &&
-                    (
-                        desc.contains("video", true) || desc.contains(
-                            "playing",
-                            true,
-                        ) || desc.contains("paused", true)
-                        )
+            if (!desc.isNullOrBlank() && desc.length > 15) {
+                if ((desc.contains("playing", true) || desc.contains("paused", true)) &&
+                    (desc.contains("video", true) || desc.contains("short", true) || desc.contains("reel", true))
                 ) {
-                    Timber.d("Short-form content video description found: $desc")
-                    foundShortFormIndicators++
+                    Timber.d("Video playback state description found: $desc")
+                    foundPlayerControls++
                 }
             }
 
@@ -184,9 +249,9 @@ class ShortFormContentBlockerService : AccessibilityService() {
             }
         }
 
-        val hasPattern = foundShortFormIndicators > 0
-        Timber.v("Scanned $nodesScanned nodes, found $foundShortFormIndicators short-form indicators")
-        return hasPattern
+        val hasControls = foundPlayerControls > 0
+        Timber.v("Scanned $nodesScanned nodes, found $foundPlayerControls player control indicators")
+        return hasControls
     }
 
     private fun handleShortFormContentDetected(root: AccessibilityNodeInfo) {
