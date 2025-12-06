@@ -119,18 +119,18 @@ android {
         buildConfig = true
     }
 
-    dokka {
-        moduleName.set(path)
-        dokkaSourceSets.named("main") {
-            includes.from("README.md")
-            suppressGeneratedFiles.set(true)
-        }
-        pluginsConfiguration.withType<DokkaHtmlPluginParameters> {
-            footerMessage.set("Made with ❤\uFE0F by Atick Faisal")
-        }
-    }
-
     namespace = "dev.atick.shorts"
+}
+
+dokka {
+    moduleName.set(path)
+    dokkaSourceSets.named("main") {
+        includes.from("README.md")
+        suppressGeneratedFiles.set(true)
+    }
+    pluginsConfiguration.withType<DokkaHtmlPluginParameters> {
+        footerMessage.set("Made with ❤\uFE0F by Atick Faisal")
+    }
 }
 
 dependencies {
