@@ -34,6 +34,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.atick.shorts.ui.screens.AccessibilityPermissionContent
 import dev.atick.shorts.ui.theme.ShortsBlockerTheme
+import dev.atick.shorts.ui.viewmodels.AccessibilityPermissionViewModel
 import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
