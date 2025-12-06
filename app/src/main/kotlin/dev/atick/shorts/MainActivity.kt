@@ -32,7 +32,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.atick.shorts.ui.screens.AccessibilityPermissionContent
+import dev.atick.shorts.ui.screens.MainScreenContent
 import dev.atick.shorts.ui.theme.ShortsBlockerTheme
 import dev.atick.shorts.ui.viewmodels.AccessibilityPermissionViewModel
 import timber.log.Timber
@@ -102,7 +102,7 @@ private fun AccessibilityPermissionScreenWithLifecycle(viewModel: AccessibilityP
         }
     }
 
-    AccessibilityPermissionContent(
+    MainScreenContent(
         isPermissionGranted = permissionState.isGranted,
         trackedPackages = permissionState.trackedPackages,
         onOpenSettings = { viewModel.openAccessibilitySettings() },

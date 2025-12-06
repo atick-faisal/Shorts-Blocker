@@ -59,17 +59,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.atick.shorts.ui.viewmodels.AccessibilityPermissionViewModel
 
 /**
- * Main accessibility permission screen with ViewModel integration.
- * This is the primary entry point for the permission UI.
+ * Main screen with ViewModel integration.
+ * This is the primary entry point for the app UI.
  */
 @Composable
-fun AccessibilityPermissionScreen(
+fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: AccessibilityPermissionViewModel = viewModel(),
 ) {
     val permissionState by viewModel.permissionState.collectAsState()
 
-    AccessibilityPermissionContent(
+    MainScreenContent(
         isPermissionGranted = permissionState.isGranted,
         modifier = modifier,
         trackedPackages = permissionState.trackedPackages,
@@ -81,11 +81,11 @@ fun AccessibilityPermissionScreen(
 }
 
 /**
- * Pure presentation layer for permission screen.
+ * Pure presentation layer for main screen.
  * Use this for testing or when you want to manage state externally.
  */
 @Composable
-fun AccessibilityPermissionContent(
+fun MainScreenContent(
     isPermissionGranted: Boolean,
     modifier: Modifier = Modifier,
     trackedPackages: List<dev.atick.shorts.models.TrackedPackage> = emptyList(),
@@ -104,12 +104,12 @@ fun AccessibilityPermissionContent(
             verticalArrangement = Arrangement.Center,
         ) {
             if (isPermissionGranted) {
-                PermissionGrantedContent(
+                ServiceActiveContent(
                     trackedPackages = trackedPackages,
                     onPackageToggle = onPackageToggle,
                 )
             } else {
-                PermissionRequiredContent(
+                SetupRequiredContent(
                     onOpenSettings = onOpenSettings,
                 )
             }
@@ -119,7 +119,7 @@ fun AccessibilityPermissionContent(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun PermissionGrantedContent(
+private fun ServiceActiveContent(
     trackedPackages: List<dev.atick.shorts.models.TrackedPackage> = emptyList(),
     onPackageToggle: (String, Boolean) -> Unit = { _, _ -> },
 ) {
@@ -176,7 +176,7 @@ private fun PermissionGrantedContent(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "YouTube Shorts blocker is running",
+                text = "Content blocker is running",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
@@ -218,7 +218,7 @@ private fun PermissionGrantedContent(
 }
 
 @Composable
-private fun PermissionRequiredContent(
+private fun SetupRequiredContent(
     onOpenSettings: () -> Unit,
 ) {
     AnimatedVisibility(
@@ -252,7 +252,7 @@ private fun PermissionRequiredContent(
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "Permission Required",
+                text = "Setup Required",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -261,7 +261,7 @@ private fun PermissionRequiredContent(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Enable accessibility service to block YouTube Shorts automatically",
+                text = "Enable accessibility service to block short-form content automatically",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
@@ -295,7 +295,7 @@ private fun PermissionRequiredContent(
                     )
                     InstructionStep(
                         number = "2",
-                        text = "Find 'Shorts Blocker' in the list",
+                        text = "Find the app in the list",
                     )
                     InstructionStep(
                         number = "3",
@@ -402,11 +402,11 @@ private fun InstructionStep(
     }
 }
 
-@Preview(showBackground = true, name = "Permission Granted")
+@Preview(showBackground = true, name = "Service Active")
 @Composable
-private fun PermissionGrantedPreview() {
+private fun ServiceActivePreview() {
     MaterialTheme {
-        AccessibilityPermissionContent(
+        MainScreenContent(
             isPermissionGranted = true,
             trackedPackages = listOf(
                 dev.atick.shorts.models.TrackedPackage(
@@ -426,11 +426,11 @@ private fun PermissionGrantedPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Permission Required")
+@Preview(showBackground = true, name = "Setup Required")
 @Composable
-private fun PermissionRequiredPreview() {
+private fun SetupRequiredPreview() {
     MaterialTheme {
-        AccessibilityPermissionContent(
+        MainScreenContent(
             isPermissionGranted = false,
         )
     }
