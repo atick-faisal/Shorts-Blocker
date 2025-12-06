@@ -11,13 +11,16 @@
 
 # Shorts Blocker
 
-An Android app that automatically blocks short-form content (YouTube Shorts, Instagram Reels) using accessibility services.
+An Android app that automatically blocks short-form content (YouTube Shorts, Instagram Reels) using
+accessibility services.
 
 ## What It Does
 
-Shorts Blocker detects when you're watching short-form content and automatically hits the back button. No more endless scrolling.
+Shorts Blocker detects when you're watching short-form content and automatically hits the back
+button. No more endless scrolling.
 
 **Supported Apps:**
+
 - YouTube Shorts
 - Instagram Reels
 
@@ -31,11 +34,13 @@ Shorts Blocker detects when you're watching short-form content and automatically
 ## Installation
 
 ### From Release
+
 1. Download the latest APK from [Releases](../../releases)
 2. Install the APK
 3. Enable accessibility service in Settings
 
 ### Build From Source
+
 See [Getting Started Guide](docs/getting-started.md)
 
 ## Usage
@@ -105,13 +110,15 @@ PRs welcome. Keep it simple.
 ## FAQ
 
 **Q: Why do you need accessibility permission?**  
-A: To detect UI elements and navigate back automatically. It's the only way to detect short-form content.
+A: To detect UI elements and navigate back automatically. It's the only way to detect short-form
+content.
 
 **Q: Does this work on [other platform]?**  
 A: Android only. iOS doesn't allow this level of system access.
 
 **Q: Can I add more apps?**  
-A: Yes! Check the [Getting Started Guide](docs/getting-started.md) to learn how to implement detectors for other apps.
+A: Yes! Check the [Getting Started Guide](docs/getting-started.md) to learn how to implement
+detectors for other apps.
 
 **Q: Why isn't it detecting content?**  
 A: Detection patterns may need updating after app updates. Open an issue with your app version.
