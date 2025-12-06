@@ -1,0 +1,13 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module::app
+dev.atick.shorts
+dev.atick.shorts.models
+dev.atick.shorts.services
+dev.atick.shorts.services.detectors
+dev.atick.shorts.ui.components
+dev.atick.shorts.ui.screens
+dev.atick.shorts.ui.theme
+dev.atick.shorts.ui.viewmodels
+dev.atick.shorts.utils
