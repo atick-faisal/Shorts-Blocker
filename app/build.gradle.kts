@@ -17,6 +17,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import org.jetbrains.dokka.gradle.engine.plugins.DokkaHtmlPluginParameters
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.time.LocalDateTime
@@ -29,6 +30,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.dokka)
 }
 
 android {
@@ -117,6 +119,17 @@ android {
         buildConfig = true
     }
 
+    dokka {
+        moduleName.set(path)
+        dokkaSourceSets.named("main") {
+            includes.from("README.md")
+            suppressGeneratedFiles.set(true)
+        }
+        pluginsConfiguration.withType<DokkaHtmlPluginParameters> {
+            footerMessage.set("Made with ❤\uFE0F by Atick Faisal")
+        }
+    }
+
     namespace = "dev.atick.shorts"
 }
 
@@ -135,6 +148,9 @@ dependencies {
 
     implementation(libs.androidx.dataStore.core)
     implementation(libs.androidx.dataStore.preferences)
+
+    dokkaPlugin(libs.dokka.android.plugin)
+    dokkaPlugin(libs.dokka.mermaid.plugin)
 
     debugImplementation(libs.timber.logging)
 }
