@@ -95,7 +95,7 @@
   <div class="breadcrumbs"></div>
   <div class="cover ">
     <h1 class="cover"><span><span>:app</span></span></h1>
-    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><p class="paragraph">Technical deep dive into the Shorts Blocker architecture, component interactions, and data flow.</p><h2 class="">Architecture Overview</h2><p class="paragraph">Shorts Blocker follows a clean architecture pattern with clear separation of concerns:</p><ul><li><p class="paragraph"><strong>UI Layer</strong>: Jetpack Compose with MVVM</p></li><li><p class="paragraph"><strong>Domain Layer</strong>: Business logic and detectors</p></li><li><p class="paragraph"><strong>Data Layer</strong>: DataStore for preferences</p></li><li><p class="paragraph"><strong>Service Layer</strong>: Accessibility service running independently</p></li></ul><h2 class="">High-Level Architecture</h2><div class="sample-container"><div id="mermaid-container-lfhsvhj9dlae"></div></div><script>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><p class="paragraph">Technical deep dive into the Shorts Blocker architecture, component interactions, and data flow.</p><h2 class="">Architecture Overview</h2><p class="paragraph">Shorts Blocker follows a clean architecture pattern with clear separation of concerns:</p><ul><li><p class="paragraph"><strong>UI Layer</strong>: Jetpack Compose with MVVM</p></li><li><p class="paragraph"><strong>Domain Layer</strong>: Business logic and detectors</p></li><li><p class="paragraph"><strong>Data Layer</strong>: DataStore for preferences</p></li><li><p class="paragraph"><strong>Service Layer</strong>: Accessibility service running independently</p></li></ul><h2 class="">High-Level Architecture</h2><div class="sample-container"><div id="mermaid-container-4klheg7qvgbi"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `graph TB
     subgraph \"UI Layer\"
@@ -133,9 +133,9 @@ window.addEventListener('load', function() {
     style I fill: #ffe1e1
     style F fill: #e1ffe1
     style L fill: #fff4e1`;
-  var container = document.getElementById('mermaid-container-lfhsvhj9dlae');
-  container.innerHTML = '<div id="mermaid-target-lfhsvhj9dlae"></div>';
-  var updateGraphlfhsvhj9dlae = function() {
+  var container = document.getElementById('mermaid-container-4klheg7qvgbi');
+  container.innerHTML = '<div id="mermaid-target-4klheg7qvgbi"></div>';
+  var updateGraph4klheg7qvgbi = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -146,21 +146,21 @@ window.addEventListener('load', function() {
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-lfhsvhj9dlae', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-4klheg7qvgbi', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-lfhsvhj9dlae').removeAttribute('height')
+          document.getElementById('mermaid-target-4klheg7qvgbi').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraphlfhsvhj9dlae();
+  updateGraph4klheg7qvgbi();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraphlfhsvhj9dlae();
+    updateGraph4klheg7qvgbi();
   });
-});</script><h2 class="">Detailed Component Flow</h2><div class="sample-container"><div id="mermaid-container-67epior7h2f4c"></div></div><script>
+});</script><h2 class="">Detailed Component Flow</h2><div class="sample-container"><div id="mermaid-container-1bt5bpbuodua3"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `sequenceDiagram
     participant User
@@ -195,9 +195,9 @@ window.addEventListener('load', function() {
             Detector -->> AccessibilityService: false
         end
     end`;
-  var container = document.getElementById('mermaid-container-67epior7h2f4c');
-  container.innerHTML = '<div id="mermaid-target-67epior7h2f4c"></div>';
-  var updateGraph67epior7h2f4c = function() {
+  var container = document.getElementById('mermaid-container-1bt5bpbuodua3');
+  container.innerHTML = '<div id="mermaid-target-1bt5bpbuodua3"></div>';
+  var updateGraph1bt5bpbuodua3 = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -208,21 +208,21 @@ window.addEventListener('load', function() {
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-67epior7h2f4c', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-1bt5bpbuodua3', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-67epior7h2f4c').removeAttribute('height')
+          document.getElementById('mermaid-target-1bt5bpbuodua3').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraph67epior7h2f4c();
+  updateGraph1bt5bpbuodua3();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraph67epior7h2f4c();
+    updateGraph1bt5bpbuodua3();
   });
-});</script><h2 class="">Data Flow</h2><div class="sample-container"><div id="mermaid-container-3qkkm3cdpm2sb"></div></div><script>
+});</script><h2 class="">Data Flow</h2><div class="sample-container"><div id="mermaid-container-3ee3m7v213vb3"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `flowchart LR
     subgraph User Actions
@@ -254,9 +254,9 @@ window.addEventListener('load', function() {
     style E fill: #f9f, stroke: #333, stroke-width: 3px
     style F fill: #ff9, stroke: #333, stroke-width: 3px
     style H fill: #9f9, stroke: #333, stroke-width: 3px`;
-  var container = document.getElementById('mermaid-container-3qkkm3cdpm2sb');
-  container.innerHTML = '<div id="mermaid-target-3qkkm3cdpm2sb"></div>';
-  var updateGraph3qkkm3cdpm2sb = function() {
+  var container = document.getElementById('mermaid-container-3ee3m7v213vb3');
+  container.innerHTML = '<div id="mermaid-target-3ee3m7v213vb3"></div>';
+  var updateGraph3ee3m7v213vb3 = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -267,21 +267,21 @@ window.addEventListener('load', function() {
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-3qkkm3cdpm2sb', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-3ee3m7v213vb3', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-3qkkm3cdpm2sb').removeAttribute('height')
+          document.getElementById('mermaid-target-3ee3m7v213vb3').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraph3qkkm3cdpm2sb();
+  updateGraph3ee3m7v213vb3();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraph3qkkm3cdpm2sb();
+    updateGraph3ee3m7v213vb3();
   });
-});</script><h2 class="">Detection Algorithm</h2><h3 class="">YouTube Shorts</h3><div class="sample-container"><div id="mermaid-container-2ecakkna00h6r"></div></div><script>
+});</script><h2 class="">Detection Algorithm</h2><h3 class="">YouTube Shorts</h3><div class="sample-container"><div id="mermaid-container-73ob22uj8hk15"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `flowchart TD
     A[Accessibility Event] --> B{Container Size Check}
@@ -299,9 +299,9 @@ F -->|Not Found but has Player ID|G
 F -->|Not Found|Z
 style G fill: #90EE90
 style Z fill: #FFB6C6`;
-  var container = document.getElementById('mermaid-container-2ecakkna00h6r');
-  container.innerHTML = '<div id="mermaid-target-2ecakkna00h6r"></div>';
-  var updateGraph2ecakkna00h6r = function() {
+  var container = document.getElementById('mermaid-container-73ob22uj8hk15');
+  container.innerHTML = '<div id="mermaid-target-73ob22uj8hk15"></div>';
+  var updateGraph73ob22uj8hk15 = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -312,21 +312,21 @@ style Z fill: #FFB6C6`;
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-2ecakkna00h6r', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-73ob22uj8hk15', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-2ecakkna00h6r').removeAttribute('height')
+          document.getElementById('mermaid-target-73ob22uj8hk15').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraph2ecakkna00h6r();
+  updateGraph73ob22uj8hk15();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraph2ecakkna00h6r();
+    updateGraph73ob22uj8hk15();
   });
-});</script><h3 class="">Instagram Reels</h3><div class="sample-container"><div id="mermaid-container-ekk2vtlq6kpe"></div></div><script>
+});</script><h3 class="">Instagram Reels</h3><div class="sample-container"><div id="mermaid-container-5cro1sgc7iemm"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `flowchart TD
     A[Accessibility Event] --> B{Reels Tab Selected?}
@@ -340,9 +340,9 @@ window.addEventListener('load', function() {
     D -->|Indicators ≥ 2| F[Reels Detected]
 style F fill: #90EE90
 style Z fill: #FFB6C6`;
-  var container = document.getElementById('mermaid-container-ekk2vtlq6kpe');
-  container.innerHTML = '<div id="mermaid-target-ekk2vtlq6kpe"></div>';
-  var updateGraphekk2vtlq6kpe = function() {
+  var container = document.getElementById('mermaid-container-5cro1sgc7iemm');
+  container.innerHTML = '<div id="mermaid-target-5cro1sgc7iemm"></div>';
+  var updateGraph5cro1sgc7iemm = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -353,21 +353,21 @@ style Z fill: #FFB6C6`;
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-ekk2vtlq6kpe', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-5cro1sgc7iemm', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-ekk2vtlq6kpe').removeAttribute('height')
+          document.getElementById('mermaid-target-5cro1sgc7iemm').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraphekk2vtlq6kpe();
+  updateGraph5cro1sgc7iemm();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraphekk2vtlq6kpe();
+    updateGraph5cro1sgc7iemm();
   });
-});</script><h2 class="">State Management</h2><h3 class="">ViewModel State Flow</h3><div class="sample-container"><div id="mermaid-container-3f4t6a0l9paq9"></div></div><script>
+});</script><h2 class="">State Management</h2><h3 class="">ViewModel State Flow</h3><div class="sample-container"><div id="mermaid-container-47mkeqisv4otd"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `stateDiagram-v2
     [*] --> Initializing
@@ -383,9 +383,9 @@ window.addEventListener('load', function() {
         DisplayingActive --> UpdatingPackage: togglePackage()
         UpdatingPackage --> DisplayingActive
     }`;
-  var container = document.getElementById('mermaid-container-3f4t6a0l9paq9');
-  container.innerHTML = '<div id="mermaid-target-3f4t6a0l9paq9"></div>';
-  var updateGraph3f4t6a0l9paq9 = function() {
+  var container = document.getElementById('mermaid-container-47mkeqisv4otd');
+  container.innerHTML = '<div id="mermaid-target-47mkeqisv4otd"></div>';
+  var updateGraph47mkeqisv4otd = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -396,21 +396,21 @@ window.addEventListener('load', function() {
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-3f4t6a0l9paq9', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-47mkeqisv4otd', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-3f4t6a0l9paq9').removeAttribute('height')
+          document.getElementById('mermaid-target-47mkeqisv4otd').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraph3f4t6a0l9paq9();
+  updateGraph47mkeqisv4otd();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraph3f4t6a0l9paq9();
+    updateGraph47mkeqisv4otd();
   });
-});</script><h3 class="">Service Lifecycle</h3><div class="sample-container"><div id="mermaid-container-4eilcakcb7pl"></div></div><script>
+});</script><h3 class="">Service Lifecycle</h3><div class="sample-container"><div id="mermaid-container-3j4pldn5tqc50"></div></div><script>
 window.addEventListener('load', function() {
   var graphDef =  `stateDiagram-v2
     [*] --> Disconnected
@@ -429,9 +429,9 @@ window.addEventListener('load', function() {
     }
     Monitoring --> Disconnected: User disables
     Disconnected --> [*]`;
-  var container = document.getElementById('mermaid-container-4eilcakcb7pl');
-  container.innerHTML = '<div id="mermaid-target-4eilcakcb7pl"></div>';
-  var updateGraph4eilcakcb7pl = function() {
+  var container = document.getElementById('mermaid-container-3j4pldn5tqc50');
+  container.innerHTML = '<div id="mermaid-target-3j4pldn5tqc50"></div>';
+  var updateGraph3j4pldn5tqc50 = function() {
     // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
     // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
     setTimeout(() => {
@@ -442,19 +442,19 @@ window.addEventListener('load', function() {
         theme = 'dark';
       }
       mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-4eilcakcb7pl', graphDef).then(({ svg, bindFunctions }) => {
+      mermaid.render('mermaid-target-3j4pldn5tqc50', graphDef).then(({ svg, bindFunctions }) => {
           container.innerHTML = svg;
           // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-4eilcakcb7pl').removeAttribute('height')
+          document.getElementById('mermaid-target-3j4pldn5tqc50').removeAttribute('height')
           bindFunctions?.(element);
       });
     }, 0);
   }
-  updateGraph4eilcakcb7pl();
+  updateGraph3j4pldn5tqc50();
   
   var themeToggleButton = document.getElementById('theme-toggle-button');
   themeToggleButton.addEventListener('click', () => {
-    updateGraph4eilcakcb7pl();
+    updateGraph3j4pldn5tqc50();
   });
 });</script></div></div>
   </div>
