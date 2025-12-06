@@ -95,7 +95,7 @@
   <div class="breadcrumbs"><a href="../../index.html">:app</a><span class="delimiter">/</span><a href="../index.html">dev.atick.shorts.utils</a><span class="delimiter">/</span><span class="current">UserPreferencesProvider</span></div>
   <div class="cover ">
     <h1 class="cover"><span>User</span><wbr><span>Preferences</span><wbr><span><span>Provider</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">UserPreferencesProvider</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Manages user preferences for tracked packages using DataStore.</p><p class="paragraph">Provides methods to store and retrieve which app packages are enabled for short-form content blocking.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">UserPreferencesProvider</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Manages user preferences for tracked packages using DataStore.</p><p class="paragraph">Provides methods to store and retrieve which app packages are enabled for short-form content blocking, as well as onboarding state.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -121,7 +121,22 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="-1875657281%2FFunctions%2F1606452474" anchor-label="getTrackedPackages" id="-1875657281%2FFunctions%2F1606452474" data-filterable-set=":app/main"></a>
+        <div class="table"><a data-name="271557414%2FFunctions%2F1606452474" anchor-label="getOnboardingCompleted" id="271557414%2FFunctions%2F1606452474" data-filterable-set=":app/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-onboarding-completed.html"><span>get</span><wbr><span>Onboarding</span><wbr><span><span>Completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="271557414%2FFunctions%2F1606452474"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-onboarding-completed.html"><span class="token function">getOnboardingCompleted</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets whether onboarding has been completed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1875657281%2FFunctions%2F1606452474" anchor-label="getTrackedPackages" id="-1875657281%2FFunctions%2F1606452474" data-filterable-set=":app/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -151,17 +166,32 @@
               </div>
             </div>
           </div>
-<a data-name="-493779812%2FFunctions%2F1606452474" anchor-label="initializeDefaultPackages" id="-493779812%2FFunctions%2F1606452474" data-filterable-set=":app/main"></a>
+<a data-name="499796553%2FFunctions%2F1606452474" anchor-label="setDisclosureAccepted" id="499796553%2FFunctions%2F1606452474" data-filterable-set=":app/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="initialize-default-packages.html"><span>initialize</span><wbr><span>Default</span><wbr><span><span>Packages</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-493779812%2FFunctions%2F1606452474"></span>
+                  <div><a href="set-disclosure-accepted.html"><span>set</span><wbr><span>Disclosure</span><wbr><span><span>Accepted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="499796553%2FFunctions%2F1606452474"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="initialize-default-packages.html"><span class="token function">initializeDefaultPackages</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Initializes preferences with default packages if none are set.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-disclosure-accepted.html"><span class="token function">setDisclosureAccepted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">accepted<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets disclosure acceptance status.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-23620105%2FFunctions%2F1606452474" anchor-label="setOnboardingCompleted" id="-23620105%2FFunctions%2F1606452474" data-filterable-set=":app/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-onboarding-completed.html"><span>set</span><wbr><span>Onboarding</span><wbr><span><span>Completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-23620105%2FFunctions%2F1606452474"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-onboarding-completed.html"><span class="token function">setOnboardingCompleted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">completed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets onboarding completion status.</p></div></div></div>
                 </div>
               </div>
             </div>
