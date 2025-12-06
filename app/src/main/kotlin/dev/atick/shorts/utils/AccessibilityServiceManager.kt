@@ -22,7 +22,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import timber.log.Timber
 
-object AccessibilityPermissionManager {
+object AccessibilityServiceManager {
 
     /**
      * Check if the accessibility service is enabled for this app.

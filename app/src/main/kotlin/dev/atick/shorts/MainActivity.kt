@@ -34,7 +34,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.atick.shorts.ui.screens.MainScreenContent
 import dev.atick.shorts.ui.theme.ShortsBlockerTheme
-import dev.atick.shorts.ui.viewmodels.AccessibilityPermissionViewModel
+import dev.atick.shorts.ui.viewmodels.MainViewModel
 import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    AccessibilityPermissionScreenWithLifecycle()
+                    MainScreenWithLifecycle()
                 }
             }
         }
@@ -70,19 +70,20 @@ class MainActivity : ComponentActivity() {
 }
 
 /**
- * Wrapper that handles lifecycle events for the permission screen.
- * This ensures permission is rechecked when the app resumes.
+ * Wrapper that handles lifecycle events for the main screen.
+ * This ensures service status is rechecked when the app resumes.
  */
 @Composable
-private fun AccessibilityPermissionScreenWithLifecycle(viewModel: AccessibilityPermissionViewModel = viewModel()) {
+private fun MainScreenWithLifecycle() {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val permissionState by viewModel.permissionState.collectAsState()
+    val viewModel: MainViewModel = viewModel()
+    val serviceState by viewModel.serviceState.collectAsState()
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_RESUME -> {
-                    Timber.d("Lifecycle ON_RESUME - checking permission")
+                    Timber.d("Lifecycle ON_RESUME - checking service status")
                     viewModel.onResume()
                 }
 
@@ -103,8 +104,8 @@ private fun AccessibilityPermissionScreenWithLifecycle(viewModel: AccessibilityP
     }
 
     MainScreenContent(
-        isPermissionGranted = permissionState.isGranted,
-        trackedPackages = permissionState.trackedPackages,
+        isPermissionGranted = serviceState.isGranted,
+        trackedPackages = serviceState.trackedPackages,
         onOpenSettings = { viewModel.openAccessibilitySettings() },
         onPackageToggle = { packageName, enabled ->
             viewModel.togglePackageTracking(packageName, enabled)

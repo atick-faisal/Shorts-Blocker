@@ -56,7 +56,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.atick.shorts.ui.viewmodels.AccessibilityPermissionViewModel
+import dev.atick.shorts.ui.viewmodels.MainViewModel
 
 /**
  * Main screen with ViewModel integration.
@@ -65,14 +65,14 @@ import dev.atick.shorts.ui.viewmodels.AccessibilityPermissionViewModel
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    viewModel: AccessibilityPermissionViewModel = viewModel(),
+    viewModel: MainViewModel = viewModel(),
 ) {
-    val permissionState by viewModel.permissionState.collectAsState()
+    val serviceState by viewModel.serviceState.collectAsState()
 
     MainScreenContent(
-        isPermissionGranted = permissionState.isGranted,
+        isPermissionGranted = serviceState.isGranted,
         modifier = modifier,
-        trackedPackages = permissionState.trackedPackages,
+        trackedPackages = serviceState.trackedPackages,
         onOpenSettings = { viewModel.openAccessibilitySettings() },
         onPackageToggle = { packageName, enabled ->
             viewModel.togglePackageTracking(packageName, enabled)

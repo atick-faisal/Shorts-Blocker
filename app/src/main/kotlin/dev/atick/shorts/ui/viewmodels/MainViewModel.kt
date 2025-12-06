@@ -20,7 +20,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import dev.atick.shorts.models.TrackedPackage
-import dev.atick.shorts.utils.AccessibilityPermissionManager
+import dev.atick.shorts.utils.AccessibilityServiceManager
 import dev.atick.shorts.utils.UserPreferencesProvider
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,13 +30,13 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-data class PermissionState(
+data class ServiceState(
     val isGranted: Boolean = false,
     val isChecking: Boolean = false,
     val trackedPackages: List<TrackedPackage> = emptyList(),
 )
 
-class AccessibilityPermissionViewModel(
+class MainViewModel(
     application: Application,
 ) : AndroidViewModel(application) {
 
@@ -47,13 +47,13 @@ class AccessibilityPermissionViewModel(
 
     private val userPreferencesProvider = UserPreferencesProvider(application)
 
-    private val _permissionState = MutableStateFlow(PermissionState())
-    val permissionState: StateFlow<PermissionState> = _permissionState.asStateFlow()
+    private val _serviceState = MutableStateFlow(ServiceState())
+    val serviceState: StateFlow<ServiceState> = _serviceState.asStateFlow()
 
     private var isMonitoring = false
 
     init {
-        Timber.d("AccessibilityPermissionViewModel initialized")
+        Timber.d("MainViewModel initialized")
         initializePreferences()
         checkPermission()
         observeTrackedPackages()
@@ -69,41 +69,41 @@ class AccessibilityPermissionViewModel(
         viewModelScope.launch {
             userPreferencesProvider.getTrackedPackagesWithStatus().collect { packages ->
                 Timber.d("Tracked packages updated: ${packages.filter { it.isEnabled }.map { it.displayName }}")
-                _permissionState.value = _permissionState.value.copy(trackedPackages = packages)
+                _serviceState.value = _serviceState.value.copy(trackedPackages = packages)
             }
         }
     }
 
     /**
-     * Check accessibility permission status.
+     * Check accessibility service status.
      * This is called automatically on lifecycle resume and periodically.
      */
     fun checkPermission() {
         viewModelScope.launch {
-            Timber.d("Checking accessibility permission")
-            _permissionState.value = _permissionState.value.copy(isChecking = true)
+            Timber.d("Checking accessibility service status")
+            _serviceState.value = _serviceState.value.copy(isChecking = true)
 
-            val isGranted = AccessibilityPermissionManager.isAccessibilityServiceEnabled(
+            val isGranted = AccessibilityServiceManager.isAccessibilityServiceEnabled(
                 getApplication(),
                 SERVICE_NAME,
             )
 
-            _permissionState.value = PermissionState(
+            _serviceState.value = ServiceState(
                 isGranted = isGranted,
                 isChecking = false,
             )
 
-            Timber.i("Permission check complete: isGranted=$isGranted")
+            Timber.i("Service check complete: isGranted=$isGranted")
         }
     }
 
     /**
      * Open Android accessibility settings page.
-     * Automatically starts monitoring for permission changes.
+     * Automatically starts monitoring for service status changes.
      */
     fun openAccessibilitySettings() {
-        Timber.d("Opening accessibility settings from ViewModel")
-        AccessibilityPermissionManager.openAccessibilitySettings(getApplication())
+        Timber.d("Opening accessibility settings")
+        AccessibilityServiceManager.openAccessibilitySettings(getApplication())
         startMonitoring()
     }
 
@@ -125,8 +125,8 @@ class AccessibilityPermissionViewModel(
                 delay(1000L)
                 checkPermission()
 
-                // Stop monitoring if permission is granted
-                if (_permissionState.value.isGranted) {
+                // Stop monitoring if service is enabled
+                if (_serviceState.value.isGranted) {
                     Timber.i("Permission granted - stopping monitoring")
                     stopMonitoring()
                     break
@@ -165,6 +165,6 @@ class AccessibilityPermissionViewModel(
     override fun onCleared() {
         super.onCleared()
         stopMonitoring()
-        Timber.d("AccessibilityPermissionViewModel cleared")
+        Timber.d("MainViewModel cleared")
     }
 }
