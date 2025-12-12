@@ -27,8 +27,10 @@ import dev.atick.shorts.services.detectors.YouTubeShortsDetector
 import dev.atick.shorts.utils.UserPreferencesProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 
@@ -46,6 +48,9 @@ class ShortFormContentBlockerService : AccessibilityService() {
     private val actionCooldownMillis = 1500L
     private val userPreferencesProvider by lazy { UserPreferencesProvider(applicationContext) }
 
+    private val job = SupervisorJob()
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
+
     private val detectors: Map<String, ShortFormContentDetector> by lazy {
         mapOf(
             "com.google.android.youtube" to YouTubeShortsDetector(),
@@ -56,55 +61,70 @@ class ShortFormContentBlockerService : AccessibilityService() {
     override fun onServiceConnected() {
         Timber.d("ShortFormContentBlockerService connected")
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val packages = userPreferencesProvider.getTrackedPackages().first()
-            val info = AccessibilityServiceInfo().apply {
-                eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED or
-                    AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED or
-                    AccessibilityEvent.TYPE_VIEW_SCROLLED
-                feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
-                flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS or
-                    AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
-                packageNames = packages.toTypedArray()
-                notificationTimeout = 100
+        userPreferencesProvider.getTrackedPackages()
+            .onEach { packages ->
+                Timber.d("Tracked packages updated: ${packages.joinToString()}")
+                val info = AccessibilityServiceInfo().apply {
+                    eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED or
+                            AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
+                    feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
+                    flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS or
+                            AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+                    packageNames = packages.toTypedArray()
+                    notificationTimeout = 100
+                }
+                serviceInfo = info
             }
-            serviceInfo = info
-            Timber.d("AccessibilityServiceInfo configured for tracked packages: ${packages.joinToString()}")
-        }
+            .catch { error ->
+                Timber.e(error, "Error fetching tracked packages")
+            }
+            .launchIn(coroutineScope)
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event == null) return
 
-        val packageName = event.packageName?.toString()
-        Timber.v("Accessibility event: type=${event.eventType}, className=${event.className}, package=$packageName")
+        if (
+            event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ||
+            (
+                    event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
+                            event.contentChangeTypes and
+                            AccessibilityEvent.CONTENT_CHANGE_TYPE_SUBTREE != 0
+                    )
+        ) {
+            val packageName = event.packageName?.toString()
+            Timber.v(
+                "Accessibility event: type=${event.eventType}, " +
+                        "className=${event.className}, package=$packageName",
+            )
 
-        // Get the appropriate detector for this package
-        val detector = packageName?.let { detectors[it] }
-        if (detector == null) {
-            Timber.v("No detector found for package: $packageName")
-            return
-        }
-
-        val windows = windows
-        Timber.v("Inspecting ${windows.size} windows for package: $packageName")
-        for (win in windows) {
-            // Only process focused application windows
-            if (!win.isFocused || !win.isActive) {
-                Timber.v("Skipping non-focused/inactive window")
-                continue
+            // Get the appropriate detector for this package
+            val detector = packageName?.let { detectors[it] }
+            if (detector == null) {
+                Timber.v("No detector found for package: $packageName")
+                return
             }
 
-            val root = win.root ?: continue
-            if (detector.isShortFormContent(event, root, resources)) {
-                Timber.i("[$packageName] Short-form content detected!")
-                val key = "${packageName}_content_detected"
-                if (shouldPerformAction(key)) {
-                    handleShortFormContentDetected(packageName)
-                } else {
-                    Timber.d("[$packageName] Action skipped due to cooldown")
+            val windows = windows
+            Timber.v("Inspecting ${windows.size} windows for package: $packageName")
+            for (win in windows) {
+                // Only process focused application windows
+                if (!win.isFocused || !win.isActive) {
+                    Timber.v("Skipping non-focused/inactive window")
+                    continue
                 }
-                break
+
+                val root = win.root ?: continue
+                if (detector.isShortFormContent(event, root, resources)) {
+                    Timber.i("[$packageName] Short-form content detected!")
+                    val key = "${packageName}_content_detected"
+                    if (shouldPerformAction(key)) {
+                        handleShortFormContentDetected(packageName)
+                    } else {
+                        Timber.d("[$packageName] Action skipped due to cooldown")
+                    }
+                    break
+                }
             }
         }
     }
