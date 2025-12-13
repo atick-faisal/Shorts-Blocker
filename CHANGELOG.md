@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 2025-12-13
+
+### 🎨 User Interface
+
+#### Changed
+
+- **Edge-to-Edge Display**: Enhanced theme configuration for modern Android edge-to-edge UI
+  - Updated app theme to enforce edge-to-edge display
+  - Improved visual consistency with system UI
+  - Better integration with Android's window insets
+
+#### Fixed
+
+- **OSS Licenses Display**: Fixed Open Source Licenses activity integration
+  - Properly registered OSS licenses activities in AndroidManifest
+  - Resolved license viewer functionality issues
+  - Improved legal compliance display
+
+### 🔧 Configuration
+
+#### Changed
+
+- Updated version code to 10007 (patch version 7)
+- Maintained semantic versioning consistency
+
+### 📊 Statistics
+
+- **Files Changed**: 4 files
+- **Code Added**: +10 lines
+- **Code Removed**: -5 lines
+
+---
+
 ## [1.0.5] - 2025-12-13
 
 ### 📚 Documentation
@@ -210,5 +243,7 @@ This is the first public release of Shorts Blocker, an Android accessibility ser
 
 ---
 
+[1.0.7]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.7
+[1.0.5]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.5
 [1.0.0]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.0
 
