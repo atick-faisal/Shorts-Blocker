@@ -43,6 +43,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -78,16 +79,14 @@ fun OnboardingScreen(
     val pagerState = rememberPagerState(pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
 
-    Box(
-        modifier = modifier
-            .then(
-                Modifier.fillMaxSize(),
-            )
-            .fillMaxSize(),
-    ) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+    ) { paddingValues ->
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
         ) { page ->
             when (page) {
                 0 -> WelcomePage()
@@ -99,15 +98,15 @@ fun OnboardingScreen(
         // Bottom navigation
         Column(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(24.dp),
+            verticalArrangement = Arrangement.Bottom,
         ) {
             // Page indicators
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
+                // verticalAlignment = Alignment.CenterVertically,
             ) {
                 repeat(3) { index ->
                     val alpha by animateFloatAsState(
@@ -181,13 +180,12 @@ fun OnboardingScreen(
  * Welcome page - first onboarding page.
  */
 @Composable
-private fun WelcomePage() {
+private fun WelcomePage(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
     ) {
         Surface(
             modifier = Modifier.size(120.dp),
@@ -242,19 +240,19 @@ private fun WelcomePage() {
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
-                    text = "✓ No more endless scrolling",
+                    text = "✓ No data collection",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "✓ Works automatically in the background",
+                    text = "✓ Works automatically",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "✓ Open Source App - no data collection",
+                    text = "✓ Open Source App",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
@@ -267,13 +265,12 @@ private fun WelcomePage() {
  * How it works page - demonstrates the blocking mechanism.
  */
 @Composable
-private fun HowItWorksPage() {
+private fun HowItWorksPage(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = "How Blocking Works",
@@ -407,13 +404,12 @@ private fun FlowCard(
  * Ready page - final onboarding page.
  */
 @Composable
-private fun ReadyPage() {
+private fun ReadyPage(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
     ) {
         Surface(
             modifier = Modifier.size(120.dp),

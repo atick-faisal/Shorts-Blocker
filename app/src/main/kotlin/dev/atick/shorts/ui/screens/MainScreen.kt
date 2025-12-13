@@ -163,37 +163,29 @@ fun MainScreenContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .padding(horizontal = 24.dp)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // Main content
-            Column(
-                modifier = Modifier
-                    .weight(1f, fill = false)
-                    .padding(horizontal = 24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                if (isPermissionGranted) {
-                    ServiceActiveContent(
-                        trackedPackages = trackedPackages,
-                        onPackageToggle = onPackageToggle,
-                        onManagePermission = onOpenSettings,
-                    )
-                } else {
-                    SetupRequiredContent(
-                        onOpenSettings = onOpenSettings,
-                    )
-                }
-                // Footer
-                FooterSection(
-                    onLinkClick = { url ->
-                        Timber.d("Opening URL: $url")
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        context.startActivity(intent)
-                    },
+            if (isPermissionGranted) {
+                ServiceActiveContent(
+                    trackedPackages = trackedPackages,
+                    onPackageToggle = onPackageToggle,
+                    onManagePermission = onOpenSettings,
+                )
+            } else {
+                SetupRequiredContent(
+                    onOpenSettings = onOpenSettings,
                 )
             }
+            // Footer
+            FooterSection(
+                onLinkClick = { url ->
+                    Timber.d("Opening URL: $url")
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                },
+            )
         }
     }
 }
