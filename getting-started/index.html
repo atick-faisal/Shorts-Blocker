@@ -469,6 +469,100 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#detailed-guide-adding-a-new-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Guide: Adding a New Detector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Guide: Adding a New Detector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-analyze-the-target-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Analyze the Target App
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-detector-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the Detector Class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-register-the-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Register the Detector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-to-package-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Add to Package Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-your-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Test Your Detector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-handle-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Handle Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detection-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#test-detection-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -917,6 +1011,100 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#detailed-guide-adding-a-new-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Guide: Adding a New Detector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Guide: Adding a New Detector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-analyze-the-target-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Analyze the Target App
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-detector-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the Detector Class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-register-the-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Register the Detector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-to-package-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Add to Package Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-your-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Test Your Detector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-handle-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Handle Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detection-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#test-detection-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1298,9 +1486,217 @@
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Done! The UI will automatically show the new app.</p>
+<h3 id="detailed-guide-adding-a-new-detector">Detailed Guide: Adding a New Detector</h3>
+<p>This section provides step-by-step instructions with best practices.</p>
+<h4 id="step-1-analyze-the-target-app">Step 1: Analyze the Target App</h4>
+<p>Before writing code, use Android Studio's Layout Inspector:</p>
+<ol>
+<li><strong>Enable Developer Options</strong> on your test device</li>
+<li><strong>Open the target app</strong> to the short-form content section</li>
+<li><strong>Launch Layout Inspector</strong>: Tools &gt; Layout Inspector</li>
+<li><strong>Identify unique elements</strong>:</li>
+<li>Look for distinctive view IDs (e.g., "reel_player", "shorts_container")</li>
+<li>Note element hierarchy and patterns</li>
+<li>Check for elements unique to short-form vs regular content</li>
+</ol>
+<p><strong>Example findings:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>TikTok:
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>- View ID: &quot;feed_view_pager&quot; (present in For You feed)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>- Parent: &quot;com.ss.android.ugc.aweme:id/video_container&quot;
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>- Full-screen video player in vertical layout
+</span></code></pre></div></p>
+<h4 id="step-2-create-the-detector-class">Step 2: Create the Detector Class</h4>
+<p>Create a new file in <code>services/detectors/</code>:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cm">/*</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cm"> * Copyright 2025 Atick Faisal</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cm"> * [License header...]</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="cm"> */</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">package</span><span class="w"> </span><span class="nn">dev.atick.shorts.services.detectors</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">import</span><span class="w"> </span><span class="nn">android.content.res.Resources</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">import</span><span class="w"> </span><span class="nn">android.view.accessibility.AccessibilityEvent</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="k">import</span><span class="w"> </span><span class="nn">android.view.accessibility.AccessibilityNodeInfo</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">import</span><span class="w"> </span><span class="nn">timber.log.Timber</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="k">import</span><span class="w"> </span><span class="nn">java.util.ArrayDeque</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="cm">/**</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="cm"> * Detector for TikTok short-form content.</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="cm"> *</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="cm"> * Identifies when user is watching TikTok videos by detecting the</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="cm"> * distinctive feed_view_pager element in the For You feed.</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="cm"> *</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="cm"> * Detection Strategy:</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="cm"> * - Searches for &quot;feed_view_pager&quot; view ID</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="cm"> * - Verifies full-screen vertical layout</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="cm"> * - Confirms video container is present</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="cm"> *</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="cm"> * Compatibility: Tested with TikTok 32.x - 34.x</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="cm"> */</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="kd">class</span><span class="w"> </span><span class="nc">TikTokDetector</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ShortFormContentDetector</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getPackageName</span><span class="p">():</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.zhiliaoapp.musically&quot;</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">isShortFormContent</span><span class="p">(</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">        </span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">AccessibilityEvent</span><span class="p">,</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">        </span><span class="n">rootNode</span><span class="p">:</span><span class="w"> </span><span class="n">AccessibilityNodeInfo</span><span class="p">,</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">        </span><span class="n">resources</span><span class="p">:</span><span class="w"> </span><span class="n">Resources</span><span class="p">,</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">AccessibilityNodeInfo</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">        </span><span class="n">queue</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">rootNode</span><span class="p">)</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">nodeCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">maxNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="c1">// Limit traversal for performance</span>
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">queue</span><span class="p">.</span><span class="na">isNotEmpty</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">nodeCount</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxNodes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="na">removeFirst</span><span class="p">()</span>
+</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">            </span><span class="n">nodeCount</span><span class="o">++</span>
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>
+</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w">            </span><span class="c1">// Get view ID and convert to lowercase for consistency</span>
+</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a><span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">viewIdResourceName</span><span class="o">?.</span><span class="na">lowercase</span><span class="p">()</span>
+</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>
+</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a><span class="w">            </span><span class="c1">// Check for TikTok&#39;s feed view pager</span>
+</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">viewId</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="s">&quot;feed_view_pager&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">viewId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a><span class="w">                </span><span class="n">Timber</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;[TikTok] Short-form content detected via feed_view_pager&quot;</span><span class="p">)</span>
+</span><span id="__span-9-52"><a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-9-53"><a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-54"><a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>
+</span><span id="__span-9-55"><a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a><span class="w">            </span><span class="c1">// Add children to queue for BFS traversal</span>
+</span><span id="__span-9-56"><a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">childCount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-57"><a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a><span class="w">                </span><span class="n">node</span><span class="p">.</span><span class="na">getChild</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">?.</span><span class="na">let</span><span class="p">(</span><span class="n">queue</span><span class="o">::</span><span class="n">add</span><span class="p">)</span>
+</span><span id="__span-9-58"><a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-59"><a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-9-60"><a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a>
+</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a><span class="w">        </span><span class="n">Timber</span><span class="p">.</span><span class="na">v</span><span class="p">(</span><span class="s">&quot;[TikTok] No short-form content detected (</span><span class="si">$</span><span class="n">nodeCount</span><span class="s"> nodes scanned)&quot;</span><span class="p">)</span>
+</span><span id="__span-9-62"><a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-9-63"><a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-64"><a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="step-3-register-the-detector">Step 3: Register the Detector</h4>
+<p>Update <code>ShortFormContentBlockerService.kt</code>:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">detectors</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">ShortFormContentDetector</span><span class="o">&gt;</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">lazy</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">mapOf</span><span class="p">(</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">        </span><span class="s">&quot;com.google.android.youtube&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">YouTubeShortsDetector</span><span class="p">(),</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">        </span><span class="s">&quot;com.instagram.android&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">InstagramReelsDetector</span><span class="p">(),</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">        </span><span class="s">&quot;com.zhiliaoapp.musically&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">TikTokDetector</span><span class="p">(),</span><span class="w"> </span><span class="c1">// ← Add this</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="step-4-add-to-package-constants">Step 4: Add to Package Constants</h4>
+<p>Update <code>utils/PackageConstants.kt</code>:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">object</span><span class="w"> </span><span class="nc">PackageConstants</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">YOUTUBE_PACKAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.google.android.youtube&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">INSTAGRAM_PACKAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.instagram.android&quot;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">TIKTOK_PACKAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.zhiliaoapp.musically&quot;</span><span class="w"> </span><span class="c1">// ← Add this</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">AVAILABLE_PACKAGES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">TrackedPackage</span><span class="p">(</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">            </span><span class="n">packageName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">YOUTUBE_PACKAGE</span><span class="p">,</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">            </span><span class="n">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YouTube&quot;</span><span class="p">,</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">            </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Block YouTube Shorts&quot;</span><span class="p">,</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">            </span><span class="n">isEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="p">),</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">        </span><span class="n">TrackedPackage</span><span class="p">(</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">            </span><span class="n">packageName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INSTAGRAM_PACKAGE</span><span class="p">,</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">            </span><span class="n">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Instagram&quot;</span><span class="p">,</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">            </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Block Instagram Reels&quot;</span><span class="p">,</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">            </span><span class="n">isEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">        </span><span class="p">),</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">        </span><span class="n">TrackedPackage</span><span class="p">(</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">            </span><span class="n">packageName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TIKTOK_PACKAGE</span><span class="p">,</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">            </span><span class="n">displayName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;TikTok&quot;</span><span class="p">,</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">            </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Block TikTok videos&quot;</span><span class="p">,</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">            </span><span class="n">isEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">        </span><span class="p">),</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">DEFAULT_ENABLED_PACKAGES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVAILABLE_PACKAGES</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">        </span><span class="p">.</span><span class="na">filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isEnabled</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">        </span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">packageName</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="step-5-test-your-detector">Step 5: Test Your Detector</h4>
+<ol>
+<li>
+<p><strong>Build and install</strong>:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./gradlew<span class="w"> </span>installDebug
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Enable accessibility service</strong> in Settings</p>
+</li>
+<li>
+<p><strong>Enable your new app</strong> in the Shorts Blocker UI</p>
+</li>
+<li>
+<p><strong>Monitor logs</strong>:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;TikTok|ShortForm&quot;</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Open target app</strong> and navigate to short-form content</p>
+</li>
+<li>
+<p><strong>Verify detection</strong>: Look for log messages indicating detection</p>
+</li>
+</ol>
+<p><strong>Expected logs:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>I/ShortFormContentBlockerService: [com.zhiliaoapp.musically] Short-form content detected!
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>I/TikTokDetector: [TikTok] Short-form content detected via feed_view_pager
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>D/ShortFormContentBlockerService: [com.zhiliaoapp.musically] BACK action performed successfully
+</span></code></pre></div></p>
+<h4 id="step-6-handle-edge-cases">Step 6: Handle Edge Cases</h4>
+<p>Consider these scenarios:</p>
+<ul>
+<li><strong>False positives</strong>: Detector triggers on regular content</li>
+<li>
+<p>Solution: Add additional checks to narrow detection</p>
+</li>
+<li>
+<p><strong>Missed detections</strong>: Some content not caught</p>
+</li>
+<li>
+<p>Solution: Look for alternative UI elements</p>
+</li>
+<li>
+<p><strong>App updates</strong>: Detection breaks after app update</p>
+</li>
+<li>Solution: Test with latest app version, update view IDs</li>
+</ul>
+<p><strong>Example refinement:</strong>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">isShortFormContent</span><span class="p">(...):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="c1">// ... existing code ...</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="c1">// Additional check to reduce false positives</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">viewId</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="s">&quot;feed_view_pager&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">viewId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="c1">// Verify it&#39;s actually playing video, not paused</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">isPlaying</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">checkVideoPlayingState</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isPlaying</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">            </span><span class="n">Timber</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;[TikTok] Confirmed short-form content&quot;</span><span class="p">)</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<h4 id="detection-best-practices">Detection Best Practices</h4>
+<p>✅ <strong>DO:</strong>
+- Limit node traversal (50-150 nodes max)
+- Use BFS (breadth-first search) with ArrayDeque
+- Convert view IDs to lowercase for comparison
+- Add descriptive Timber logs
+- Test on multiple app versions
+- Document detection strategy in KDoc
+- Handle null safety</p>
+<p>❌ <strong>DON'T:</strong>
+- Use DFS (can be very deep, slow)
+- Check unlimited nodes (performance)
+- Use hardcoded strings without explanation
+- Forget to recycle nodes if manually creating them
+- Rely on text content (can change with language)</p>
 <h3 id="test-detection-logic">Test Detection Logic</h3>
 <p>Enable verbose logging and use Logcat:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;(Shorts-Blocker|ShortForm|Detector)&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;(Shorts-Blocker|ShortForm|Detector)&quot;</span>
 </span></code></pre></div>
 <p>Look for:</p>
 <ul>
@@ -1310,7 +1706,7 @@
 </ul>
 <h3 id="debug-accessibility-service">Debug Accessibility Service</h3>
 <p><strong>Check if service is running:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>get<span class="w"> </span>secure<span class="w"> </span>enabled_accessibility_services
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>adb<span class="w"> </span>shell<span class="w"> </span>settings<span class="w"> </span>get<span class="w"> </span>secure<span class="w"> </span>enabled_accessibility_services
 </span></code></pre></div>
 <p><strong>Force restart service:</strong></p>
 <ol>
@@ -1320,16 +1716,16 @@
 </ol>
 <h2 id="building-for-release">Building for Release</h2>
 <h3 id="1-create-keystore">1. Create Keystore</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>keytool<span class="w"> </span>-genkey<span class="w"> </span>-v<span class="w"> </span>-keystore<span class="w"> </span>key.jks<span class="w"> </span>-keyalg<span class="w"> </span>RSA<span class="w"> </span>-keysize<span class="w"> </span><span class="m">2048</span><span class="w"> </span>-validity<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-alias<span class="w"> </span>shorts-blocker
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>keytool<span class="w"> </span>-genkey<span class="w"> </span>-v<span class="w"> </span>-keystore<span class="w"> </span>key.jks<span class="w"> </span>-keyalg<span class="w"> </span>RSA<span class="w"> </span>-keysize<span class="w"> </span><span class="m">2048</span><span class="w"> </span>-validity<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-alias<span class="w"> </span>shorts-blocker
 </span></code></pre></div>
 <h3 id="2-create-keystoreproperties">2. Create keystore.properties</h3>
-<div class="language-properties highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="na">storeFile</span><span class="o">=</span><span class="s">key.jks</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="na">storePassword</span><span class="o">=</span><span class="s">your_store_password</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="na">keyAlias</span><span class="o">=</span><span class="s">shorts-blocker</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="na">keyPassword</span><span class="o">=</span><span class="s">your_key_password</span>
+<div class="language-properties highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="na">storeFile</span><span class="o">=</span><span class="s">key.jks</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="na">storePassword</span><span class="o">=</span><span class="s">your_store_password</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="na">keyAlias</span><span class="o">=</span><span class="s">shorts-blocker</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="na">keyPassword</span><span class="o">=</span><span class="s">your_key_password</span>
 </span></code></pre></div>
 <h3 id="3-build-release-apk">3. Build Release APK</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./gradlew<span class="w"> </span>assembleRelease
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>./gradlew<span class="w"> </span>assembleRelease
 </span></code></pre></div>
 <p>APK will be in: <code>app/build/outputs/apk/release/</code></p>
 <h2 id="development-tips">Development Tips</h2>
@@ -1351,10 +1747,10 @@
 </ul>
 <h3 id="timber-logging">Timber Logging</h3>
 <p>The app uses Timber for logging (debug builds only):</p>
-<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;Debug message&quot;</span><span class="p">)</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">Timber</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;Info message&quot;</span><span class="p">)</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">Timber</span><span class="p">.</span><span class="na">w</span><span class="p">(</span><span class="s">&quot;Warning&quot;</span><span class="p">)</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">Timber</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Error message&quot;</span><span class="p">)</span>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;Debug message&quot;</span><span class="p">)</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">Timber</span><span class="p">.</span><span class="na">i</span><span class="p">(</span><span class="s">&quot;Info message&quot;</span><span class="p">)</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">Timber</span><span class="p">.</span><span class="na">w</span><span class="p">(</span><span class="s">&quot;Warning&quot;</span><span class="p">)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="n">Timber</span><span class="p">.</span><span class="na">e</span><span class="p">(</span><span class="s">&quot;Error message&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="test-on-real-device">Test on Real Device</h3>
 <p>Emulators don't have the target apps. Test on:</p>
@@ -1423,27 +1819,27 @@
 <li>Verify all resources are included</li>
 </ul>
 <p><strong>Can't install APK:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>adb<span class="w"> </span>uninstall<span class="w"> </span>dev.atick.shorts
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>adb<span class="w"> </span>install<span class="w"> </span>app/build/outputs/apk/debug/app-debug.apk
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>adb<span class="w"> </span>uninstall<span class="w"> </span>dev.atick.shorts
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>adb<span class="w"> </span>install<span class="w"> </span>app/build/outputs/apk/debug/app-debug.apk
 </span></code></pre></div>
 <h2 id="useful-commands">Useful Commands</h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Clean build</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>./gradlew<span class="w"> </span>clean
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># List all tasks</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>./gradlew<span class="w"> </span>tasks
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Build both debug and release</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>./gradlew<span class="w"> </span>build
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1"># Install and run debug</span>
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>./gradlew<span class="w"> </span>installDebug<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>dev.atick.shorts/.MainActivity
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="c1"># View logs</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Shorts-Blocker
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="c1"># Check APK size</span>
-</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>ls<span class="w"> </span>-lh<span class="w"> </span>app/build/outputs/apk/release/*.apk
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Clean build</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>./gradlew<span class="w"> </span>clean
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># List all tasks</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>./gradlew<span class="w"> </span>tasks
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Build both debug and release</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>./gradlew<span class="w"> </span>build
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="c1"># Install and run debug</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>./gradlew<span class="w"> </span>installDebug<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>dev.atick.shorts/.MainActivity
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="c1"># View logs</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>adb<span class="w"> </span>logcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Shorts-Blocker
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a><span class="c1"># Check APK size</span>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>ls<span class="w"> </span>-lh<span class="w"> </span>app/build/outputs/apk/release/*.apk
 </span></code></pre></div>
 <h2 id="resources">Resources</h2>
 <ul>
