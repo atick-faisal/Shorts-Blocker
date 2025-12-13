@@ -14,6 +14,14 @@
 An Android app that automatically blocks short-form content (YouTube Shorts, Instagram Reels) using
 accessibility services.
 
+<p align="center">
+    <a href="https://play.google.com/store/apps/details?id=dev.atick.shorts">
+        <img width="300" alt="image" src="https://github.com/user-attachments/assets/aab68ac3-17d1-4562-896c-fabc75fe8f7d" />
+    </a>
+</p>
+
+
+
 ## What It Does
 
 Shorts Blocker detects when you're watching short-form content and automatically hits the back
