@@ -13,7 +13,7 @@ googleOssPlugin = "0.10.9"
 androidxDataStore = "1.2.0"
 timber = "5.0.1"
 gmsPlugin = "4.4.4"
-firebaseBom = "34.6.0"
+firebaseBom = "34.7.0"
 firebaseCrashlyticsPlugin = "3.0.6"
 
 [libraries]
