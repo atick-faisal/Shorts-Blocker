@@ -34,7 +34,7 @@ object PackageConstants {
             packageName = YOUTUBE_PACKAGE,
             displayName = "YouTube",
             description = "Block YouTube Shorts",
-            isEnabled = true,
+            isEnabled = false,
         ),
         TrackedPackage(
             packageName = INSTAGRAM_PACKAGE,
