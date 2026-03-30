@@ -16,26 +16,22 @@
 
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
-import org.jetbrains.dokka.gradle.engine.plugins.DokkaHtmlPluginParameters
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+import com.android.build.api.dsl.ApplicationExtension
 import java.io.FileInputStream
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Properties
 
 val keystorePropertiesFile: File = rootProject.file("keystore.properties")
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.dokka)
 }
 
-android {
+extensions.configure<ApplicationExtension> {
     // ... Application Version ...
     val majorUpdateVersion = 1
     val minorUpdateVersion = 0
@@ -46,8 +42,6 @@ android {
         .plus(patchVersion)
 
     val mVersionName = "$majorUpdateVersion.$minorUpdateVersion.$patchVersion"
-    val formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_hh_mm_a")
-    val currentTime = LocalDateTime.now().format(formatter)
 
     compileSdk = 36
 
@@ -79,16 +73,6 @@ android {
         }
         release {
             isMinifyEnabled = true
-            applicationVariants.all {
-                outputs.all {
-                    (this as BaseVariantOutputImpl).outputFileName =
-                        rootProject.name.replace(" ", "_") + "_" +
-                                (buildType.name + "_v") +
-                                (versionName + "_") +
-                                "${currentTime}.apk"
-                    println(outputFileName)
-                }
-            }
             signingConfig = if (keystorePropertiesFile.exists()) {
                 signingConfigs.getByName("release")
             } else {
@@ -110,11 +94,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
-        }
-    }
 
     buildFeatures {
         compose = true
@@ -124,14 +103,25 @@ android {
     namespace = "dev.atick.shorts"
 }
 
-dokka {
-    moduleName.set(path)
-    dokkaSourceSets.named("main") {
-        includes.from("README.md")
-        suppressGeneratedFiles.set(true)
-    }
-    pluginsConfiguration.withType<DokkaHtmlPluginParameters> {
-        footerMessage.set("Made with ❤\uFE0F by Atick Faisal")
+// TODO: AGP 9 Migration - Custom Output Filename
+// FIXME: Implement proper AGP 9 approach for custom APK naming
+// Previous behavior: Jetpack_release_v{version}_{timestamp}.apk
+// Current: Using default AGP naming scheme
+//
+// AGP 9 removed direct outputFile manipulation. Recommended approaches:
+// 1. Use variant.artifacts.use() with SingleArtifact.APK
+// 2. Customize via tasks.named<PackageApplication>("package{Variant}")
+//
+// References:
+// - https://github.com/android/gradle-recipes (variantOutput recipe)
+// - https://developer.android.com/build/extend-agp
+// Tracking: GitHub Issue #579
+androidComponents {
+    onVariants { variant ->
+        // Placeholder for future custom filename logic
+        variant.outputs.forEach { output ->
+            output.versionName.set("${variant.outputs.first().versionName.getOrElse("1.0.0")}")
+        }
     }
 }
 
@@ -161,4 +151,12 @@ dependencies {
     implementation(libs.timber.logging)
 
     implementation(libs.google.oss.licenses)
+}
+
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("docs/assets/logo-icon.svg")
+        customStyleSheets.from("docs/assets/dokka.css")
+        footerMessage.set("Made with ❤\uFE0F by Atick Faisal")
+    }
 }
