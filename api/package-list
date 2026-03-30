@@ -1,7 +1,7 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
-module::app
+module:app
 dev.atick.shorts
 dev.atick.shorts.models
 dev.atick.shorts.services

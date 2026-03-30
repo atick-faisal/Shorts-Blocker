@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>:app</title>
+    <title>app</title>
 <link href="../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../";</script>
     <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -18,7 +18,6 @@
         }
       }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../scripts/sourceset_dependencies.js" async></script>
 <link href="../styles/style.css" rel="Stylesheet">
 <link href="../styles/main.css" rel="Stylesheet">
@@ -44,7 +43,7 @@
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":app/main">androidJvm</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":app/release">release</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -55,9 +54,9 @@
                     </div>
                         <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":app/main" data-filter=":app/main">
+                                <input type="checkbox" class="checkbox--input" id=":app/release" data-filter=":app/release">
                                 <span class="checkbox--icon"></span>
-                                androidJvm
+                                release
                             </label>
                         </li>
                 </ul>
@@ -91,530 +90,168 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" id="content" pageids=":app::////PointingToDeclaration//1606452474">
+<div class="main-content" id="content" pageids="app::////PointingToDeclaration//-865142711">
   <div class="breadcrumbs"></div>
   <div class="cover ">
-    <h1 class="cover"><span><span>:app</span></span></h1>
-    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><p class="paragraph">Technical deep dive into the Shorts Blocker architecture, component interactions, and data flow.</p><h2 class="">Architecture Overview</h2><p class="paragraph">Shorts Blocker follows a clean architecture pattern with clear separation of concerns:</p><ul><li><p class="paragraph"><strong>UI Layer</strong>: Jetpack Compose with MVVM</p></li><li><p class="paragraph"><strong>Domain Layer</strong>: Business logic and detectors</p></li><li><p class="paragraph"><strong>Data Layer</strong>: DataStore for preferences</p></li><li><p class="paragraph"><strong>Service Layer</strong>: Accessibility service running independently</p></li></ul><h2 class="">High-Level Architecture</h2><div class="sample-container"><div id="mermaid-container-4h2ehi7fhuu0d"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `graph TB
-    subgraph \"UI Layer\"
-        A[MainActivity] --> B[MainScreen]
-        B --> C[MainViewModel]
-        C --> D[ServiceState]
-        B --> E[Components]
-    end
-    subgraph \"Data Layer\"
-        F[UserPreferencesProvider]
-        G[DataStore]
-        F --> G
-        H[PackageConstants]
-    end
-    subgraph \"Service Layer\"
-        I[ShortFormContentBlockerService]
-        J[YouTubeShortsDetector]
-        K[InstagramReelsDetector]
-        L[ShortFormContentDetector Interface]
-        I --> L
-        J -. implements .-> L
-        K -. implements .-> L
-    end
-    subgraph \"Utils\"
-        M[AccessibilityServiceManager]
-    end
-    C --> F
-    C --> M
-    I --> F
-    I --> J
-    I --> K
-    N[Android System] -. accessibility events .-> I
-    I -. back action .-> N
-    style A fill: #e1f5ff
-    style I fill: #ffe1e1
-    style F fill: #e1ffe1
-    style L fill: #fff4e1`;
-  var container = document.getElementById('mermaid-container-4h2ehi7fhuu0d');
-  container.innerHTML = '<div id="mermaid-target-4h2ehi7fhuu0d"></div>';
-  var updateGraph4h2ehi7fhuu0d = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-4h2ehi7fhuu0d', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-4h2ehi7fhuu0d').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGraph4h2ehi7fhuu0d();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGraph4h2ehi7fhuu0d();
-  });
-});</script><h2 class="">Detailed Component Flow</h2><div class="sample-container"><div id="mermaid-container-73c34fqqtur1i"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `sequenceDiagram
-    participant User
-    participant MainActivity
-    participant MainViewModel
-    participant DataStore
-    participant AccessibilityService
-    participant Detector
-    participant Android
-    User ->> MainActivity: Opens App
-    MainActivity ->> MainViewModel: Initialize
-    MainViewModel ->> DataStore: getTrackedPackages()
-    DataStore -->> MainViewModel: List<String>
-    MainViewModel -->> MainActivity: ServiceState
-    MainActivity ->> User: Shows Status
-    User ->> MainActivity: Enable Service
-    MainActivity ->> Android: Open Accessibility Settings
-    User ->> Android: Enables Service
-    Android ->> AccessibilityService: onServiceConnected()
-    AccessibilityService ->> DataStore: Get tracked packages
-    DataStore -->> AccessibilityService: Package list
-    AccessibilityService ->> AccessibilityService: Configure service info
-    loop Content Monitoring
-        Android ->> AccessibilityService: onAccessibilityEvent()
-        AccessibilityService ->> Detector: isShortFormContent()
-        Detector ->> Detector: Analyze UI tree
-        alt Short-form detected
-            Detector -->> AccessibilityService: true
-            AccessibilityService ->> AccessibilityService: Check cooldown
-            AccessibilityService ->> Android: performGlobalAction(BACK)
-        else Not detected
-            Detector -->> AccessibilityService: false
-        end
-    end`;
-  var container = document.getElementById('mermaid-container-73c34fqqtur1i');
-  container.innerHTML = '<div id="mermaid-target-73c34fqqtur1i"></div>';
-  var updateGraph73c34fqqtur1i = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-73c34fqqtur1i', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-73c34fqqtur1i').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGraph73c34fqqtur1i();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGraph73c34fqqtur1i();
-  });
-});</script><h2 class="">Data Flow</h2><div class="sample-container"><div id="mermaid-container-5o9o6i0ne44a1"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `flowchart LR
-    subgraph User Actions
-        A[User Toggles Package]
-    end
-    subgraph UI Layer
-        B[MainScreen] --> C[MainViewModel]
-    end
-    subgraph Data Layer
-        D[UserPreferencesProvider]
-        E[(DataStore)]
-        D --> E
-    end
-    subgraph Service Layer
-        F[ShortFormContentBlockerService]
-        G[Detector]
-    end
-    A --> B
-    C --> D
-    D --> E
-    E -. observes .-> D
-    D -. flow .-> C
-    C -. state .-> B
-    F -. reads .-> D
-    F --> G
-    G -. detection result .-> F
-    H[Android System] -. events .-> F
-    F -. actions .-> H
-    style E fill: #f9f, stroke: #333, stroke-width: 3px
-    style F fill: #ff9, stroke: #333, stroke-width: 3px
-    style H fill: #9f9, stroke: #333, stroke-width: 3px`;
-  var container = document.getElementById('mermaid-container-5o9o6i0ne44a1');
-  container.innerHTML = '<div id="mermaid-target-5o9o6i0ne44a1"></div>';
-  var updateGraph5o9o6i0ne44a1 = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-5o9o6i0ne44a1', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-5o9o6i0ne44a1').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGraph5o9o6i0ne44a1();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGraph5o9o6i0ne44a1();
-  });
-});</script><h2 class="">Detection Algorithm</h2><h3 class="">YouTube Shorts</h3><div class="sample-container"><div id="mermaid-container-1c66465n5paca"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `flowchart TD
-    A[Accessibility Event] --> B{Container Size Check}
-    B -->|Too Small| Z[Not Shorts]
-    B -->|Large Enough| C{View ID Check}
-    C -->|Shelf/Grid/Chip| Z
-    C -->|Player ID| D{Full Screen Check}
-    C -->|Unknown| D
-    D -->|< 85% height| Z
-    D -->|≥ 85% height| E{Aspect Ratio}
-    E -->|≤ 1 . 5| Z
-    E -->|> 1 . 5| F{Player Controls}
-    F -->|Found| G[Shorts Detected]
-F -->|Not Found but has Player ID|G
-F -->|Not Found|Z
-style G fill: #90EE90
-style Z fill: #FFB6C6`;
-  var container = document.getElementById('mermaid-container-1c66465n5paca');
-  container.innerHTML = '<div id="mermaid-target-1c66465n5paca"></div>';
-  var updateGraph1c66465n5paca = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-1c66465n5paca', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-1c66465n5paca').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGraph1c66465n5paca();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGraph1c66465n5paca();
-  });
-});</script><h3 class="">Instagram Reels</h3><div class="sample-container"><div id="mermaid-container-eqnq1935spqf"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `flowchart TD
-    A[Accessibility Event] --> B{Reels Tab Selected?}
-    B -->|No| C{Fragment Container?}
-    B -->|Yes| D{Active Video?}
-    C -->|No| E{Activity Class?}
-    C -->|Yes| D
-    E -->|Not Reels| Z[Not Reels]
-    E -->|Reels Class| D
-    D -->|Indicators < 2| Z
-    D -->|Indicators ≥ 2| F[Reels Detected]
-style F fill: #90EE90
-style Z fill: #FFB6C6`;
-  var container = document.getElementById('mermaid-container-eqnq1935spqf');
-  container.innerHTML = '<div id="mermaid-target-eqnq1935spqf"></div>';
-  var updateGrapheqnq1935spqf = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-eqnq1935spqf', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-eqnq1935spqf').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGrapheqnq1935spqf();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGrapheqnq1935spqf();
-  });
-});</script><h2 class="">State Management</h2><h3 class="">ViewModel State Flow</h3><div class="sample-container"><div id="mermaid-container-5gt352kn56d0v"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `stateDiagram-v2
-    [*] --> Initializing
-    Initializing --> Checking: checkPermission()
-    Checking --> NotGranted: Service Disabled
-    Checking --> Granted: Service Enabled
-    NotGranted --> Monitoring: openAccessibilitySettings()
-    Monitoring --> Checking: Poll every 1s
-    Granted --> [*]
-    state Granted {
-        [*] --> LoadingPackages
-        LoadingPackages --> DisplayingActive
-        DisplayingActive --> UpdatingPackage: togglePackage()
-        UpdatingPackage --> DisplayingActive
-    }`;
-  var container = document.getElementById('mermaid-container-5gt352kn56d0v');
-  container.innerHTML = '<div id="mermaid-target-5gt352kn56d0v"></div>';
-  var updateGraph5gt352kn56d0v = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-5gt352kn56d0v', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-5gt352kn56d0v').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGraph5gt352kn56d0v();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGraph5gt352kn56d0v();
-  });
-});</script><h3 class="">Service Lifecycle</h3><div class="sample-container"><div id="mermaid-container-4dh3njq1nh7go"></div></div><script>
-window.addEventListener('load', function() {
-  var graphDef =  `stateDiagram-v2
-    [*] --> Disconnected
-    Disconnected --> Connected: User enables in Settings
-    Connected --> Configured: Load preferences & setup
-    Configured --> Monitoring: Start listening
-    state Monitoring {
-        [*] --> Idle
-        Idle --> ProcessingEvent: Event received
-        ProcessingEvent --> DetectingContent: Call detector
-        DetectingContent --> Idle: Not detected
-        DetectingContent --> CheckingCooldown: Detected
-        CheckingCooldown --> Idle: In cooldown
-        CheckingCooldown --> PerformingAction: Cooldown passed
-        PerformingAction --> Idle: Back action sent
-    }
-    Monitoring --> Disconnected: User disables
-    Disconnected --> [*]`;
-  var container = document.getElementById('mermaid-container-4dh3njq1nh7go');
-  container.innerHTML = '<div id="mermaid-target-4dh3njq1nh7go"></div>';
-  var updateGraph4dh3njq1nh7go = function() {
-    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
-    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
-    setTimeout(() => {
-      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
-      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
-      var theme = 'default';
-      if (isDarkMode === true) {
-        theme = 'dark';
-      }
-      mermaid.initialize({'theme': theme});
-      mermaid.render('mermaid-target-4dh3njq1nh7go', graphDef).then(({ svg, bindFunctions }) => {
-          container.innerHTML = svg;
-          // Trick to make the graph takes only the required height.
-          document.getElementById('mermaid-target-4dh3njq1nh7go').removeAttribute('height')
-          bindFunctions?.(element);
-      });
-    }, 0);
-  }
-  updateGraph4dh3njq1nh7go();
-  
-  var themeToggleButton = document.getElementById('theme-toggle-button');
-  themeToggleButton.addEventListener('click', () => {
-    updateGraph4dh3njq1nh7go();
-  });
-});</script></div></div>
+    <h1 class="cover"><span><span>app</span></span></h1>
   </div>
   <h2 class="">Packages</h2>
-  <div class="table"><a data-name="-847638526%2FPackages%2F1606452474" anchor-label="dev.atick.shorts" id="-847638526%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+  <div class="table"><a data-name="-847638526%2FPackages%2F-865142711" anchor-label="dev.atick.shorts" id="-847638526%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts/index.html">dev.atick.shorts</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847638526%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847638526%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="-1646755878%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.models" id="-1646755878%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="-1646755878%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.models" id="-1646755878%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.models/index.html">dev.atick.shorts.models</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1646755878%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1646755878%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="12767566%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.services" id="12767566%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="12767566%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.services" id="12767566%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.services/index.html">dev.atick.shorts.services</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="12767566%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="12767566%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="1251548813%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.services.detectors" id="1251548813%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="1251548813%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.services.detectors" id="1251548813%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.services.detectors/index.html">dev.atick.shorts.services.detectors</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1251548813%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1251548813%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="-1337601340%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.ui.components" id="-1337601340%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="-1337601340%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.ui.components" id="-1337601340%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.ui.components/index.html">dev.atick.shorts.ui.components</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1337601340%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1337601340%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="-1704986403%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.ui.screens" id="-1704986403%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="-1704986403%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.ui.screens" id="-1704986403%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.ui.screens/index.html">dev.atick.shorts.ui.screens</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1704986403%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1704986403%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="-775213153%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.ui.theme" id="-775213153%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="-775213153%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.ui.theme" id="-775213153%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.ui.theme/index.html">dev.atick.shorts.ui.theme</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-775213153%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-775213153%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="2035212221%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.ui.viewmodels" id="2035212221%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="2035212221%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.ui.viewmodels" id="2035212221%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.ui.viewmodels/index.html">dev.atick.shorts.ui.viewmodels</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2035212221%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2035212221%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
         <div></div>
       </div>
     </div>
-<a data-name="733435781%2FPackages%2F1606452474" anchor-label="dev.atick.shorts.utils" id="733435781%2FPackages%2F1606452474" data-filterable-set=":app/main"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/main" data-filterable-set=":app/main">
+<a data-name="733435781%2FPackages%2F-865142711" anchor-label="dev.atick.shorts.utils" id="733435781%2FPackages%2F-865142711" data-filterable-set=":app/release"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":app/release" data-filterable-set=":app/release">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="dev.atick.shorts.utils/index.html">dev.atick.shorts.utils</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="733435781%2FPackages%2F1606452474"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="733435781%2FPackages%2F-865142711"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
+              <div class="platform-tag jvm-like">release</div>
             </div>
           </div>
         </div>
@@ -632,7 +269,7 @@ window.addEventListener('load', function() {
                     <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
                         Dokka
                     </a>
-                    <div>Made with ❤️ by Atick Faisal</div>
+                    <div>© 2026 Copyright</div>
                 </div>
             </div>
         </div>

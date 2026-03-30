@@ -1,1 +1,1 @@
-sourceset_dependencies = '{":app/debug":[],":app/main":[],":app/release":[]}'
+sourceset_dependencies = '{":app/release":[]}'

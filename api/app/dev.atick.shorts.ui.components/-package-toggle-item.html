@@ -18,7 +18,6 @@
         }
       }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
@@ -44,7 +43,7 @@
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":app/main">androidJvm</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":app/release">release</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -55,9 +54,9 @@
                     </div>
                         <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":app/main" data-filter=":app/main">
+                                <input type="checkbox" class="checkbox--input" id=":app/release" data-filter=":app/release">
                                 <span class="checkbox--icon"></span>
-                                androidJvm
+                                release
                             </label>
                         </li>
                 </ul>
@@ -91,12 +90,12 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="member" id="content" pageids=":app::dev.atick.shorts.ui.components//PackageToggleItem/#dev.atick.shorts.models.TrackedPackage#kotlin.Function1[kotlin.Boolean,kotlin.Unit]#androidx.compose.ui.Modifier/PointingToDeclaration//1606452474">
-  <div class="breadcrumbs"><a href="../index.html">:app</a><span class="delimiter">/</span><a href="index.html">dev.atick.shorts.ui.components</a><span class="delimiter">/</span><span class="current">PackageToggleItem</span></div>
+<div class="main-content" data-page-type="member" id="content" pageids="app::dev.atick.shorts.ui.components//PackageToggleItem/#dev.atick.shorts.models.TrackedPackage#kotlin.Function1[kotlin.Boolean,kotlin.Unit]#androidx.compose.ui.Modifier/PointingToDeclaration//-865142711">
+  <div class="breadcrumbs"><a href="../index.html">app</a><span class="delimiter">/</span><a href="index.html">dev.atick.shorts.ui.components</a><span class="delimiter">/</span><span class="current">PackageToggleItem</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Package</span><wbr><span>Toggle</span><wbr><span><span>Item</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-package-toggle-item.html"><span class="token function">PackageToggleItem</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">trackedPackage<span class="token operator">: </span><a href="../dev.atick.shorts.models/-tracked-package/index.html">TrackedPackage</a><span class="token punctuation">, </span></span><span class="parameter ">onToggle<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier</span></span><span class="token punctuation">)</span></div><p class="paragraph">Displays a single tracked package with a toggle switch.</p><p class="paragraph">Shows the app icon, name, description, and an on/off switch to enable/disable blocking.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>tracked</span><wbr><span><span>Package</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The package information to display</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>on</span><wbr><span><span>Toggle</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Callback when the switch is toggled</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":app/main" data-filterable-set=":app/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Modifier for the root composable</p></div></div></div></div></div></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":app/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-package-toggle-item.html"><span class="token function">PackageToggleItem</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">trackedPackage<span class="token operator">: </span><a href="../dev.atick.shorts.models/-tracked-package/index.html">TrackedPackage</a><span class="token punctuation">, </span></span><span class="parameter ">onToggle<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier</span></span><span class="token punctuation">)</span></div><p class="paragraph">Displays a single tracked package with a toggle switch.</p><p class="paragraph">Shows the app icon, name, description, and an on/off switch to enable/disable blocking.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":app/release" data-filterable-set=":app/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>tracked</span><wbr><span><span>Package</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The package information to display</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":app/release" data-filterable-set=":app/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>on</span><wbr><span><span>Toggle</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Callback when the switch is toggled</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":app/release" data-filterable-set=":app/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Modifier for the root composable</p></div></div></div></div></div></div></div>
 </div>
     <div class="footer">
         <div class="footer--container">
@@ -107,7 +106,7 @@
                     <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
                         Dokka
                     </a>
-                    <div>Made with ❤️ by Atick Faisal</div>
+                    <div>© 2026 Copyright</div>
                 </div>
             </div>
         </div>
