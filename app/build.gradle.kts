@@ -152,11 +152,3 @@ dependencies {
 
     implementation(libs.google.oss.licenses)
 }
-
-dokka {
-    pluginsConfiguration.html {
-        customAssets.from("docs/assets/logo-icon.svg")
-        customStyleSheets.from("docs/assets/dokka.css")
-        footerMessage.set("Made with ❤\uFE0F by Atick Faisal")
-    }
-}
