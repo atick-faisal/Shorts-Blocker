@@ -14,7 +14,7 @@ androidxDataStore = "1.2.1"
 timber = "5.0.1"
 gmsPlugin = "4.4.4"
 firebaseBom = "34.11.0"
-firebaseCrashlyticsPlugin = "3.0.6"
+firebaseCrashlyticsPlugin = "3.0.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
