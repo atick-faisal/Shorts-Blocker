@@ -43,7 +43,7 @@ extensions.configure<ApplicationExtension> {
 
     val mVersionName = "$majorUpdateVersion.$minorUpdateVersion.$patchVersion"
 
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 24
