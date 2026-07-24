@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2026-07-24
+
+### 🏗️ Build & Dependencies
+
+#### Changed
+
+- **AGP 9 Migration**: Migrated app module to the AGP 9 `ApplicationExtension` DSL (`extensions.configure<ApplicationExtension> { ... }`)
+  - Replaced deprecated `Project.android(...)` accessor usage
+  - Removed deprecated AGP 9 properties from `gradle.properties` (`android.sdk.defaultTargetSdkToCompileSdkIfUnset`, `android.enableAppCompileTimeRClass`, `android.usesSdkInManifest.disallowed`, `android.uniquePackageNames`, `android.r8.strictFullModeForKeepRules`, `android.r8.optimizedResourceShrinking`, `android.builtInKotlin`, `android.newDsl`)
+- Bumped `compileSdk` to 37 for updated dependency compatibility
+- Removed unused Dokka configuration from `app/build.gradle.kts`
+- Grouped all Dependabot updates into a single PR per ecosystem
+- Updated Gradle wrapper (8.13 → 9.5.1), Kotlin (2.2.21 → 2.3.10), AGP (8.13.1 → 9.2.0)
+- Updated Compose BOM, Material3, Firebase BOM, Play Services OSS Licenses, DataStore, Core KTX, Activity Compose
+- Updated GitHub Actions: `checkout`, `upload-artifact`, `download-artifact`, `gradle/actions`, `softprops/action-gh-release`
+
+### 🚦 Behavior
+
+#### Changed
+
+- Disabled YouTube Shorts blocking by default (`PackageConstants`); Instagram Reels blocking remains enabled
+
+---
+
 ## [1.0.7] - 2025-12-13
 
 ### 🎨 User Interface
@@ -243,6 +267,7 @@ This is the first public release of Shorts Blocker, an Android accessibility ser
 
 ---
 
+[1.0.9]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.9
 [1.0.7]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.7
 [1.0.5]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.5
 [1.0.0]: https://github.com/atick-faisal/Shorts-Blocker/releases/tag/v1.0.0

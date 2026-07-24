@@ -1,0 +1,2 @@
+• Migrated build to AGP 9, updated dependencies and toolchain
+• YouTube Shorts blocking is now disabled by default (Instagram Reels blocking unaffected)
