@@ -28,6 +28,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.google.oss.licenses)
     alias(libs.plugins.dokka)
 }
 

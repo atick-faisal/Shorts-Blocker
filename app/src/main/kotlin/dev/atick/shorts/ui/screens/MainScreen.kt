@@ -18,6 +18,7 @@ package dev.atick.shorts.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -562,12 +563,21 @@ private fun FooterSection(
             FooterLink(
                 text = "Licenses",
                 onClick = {
-                    context.startActivity(
-                        Intent(
+                    try {
+                        context.startActivity(
+                            Intent(
+                                context,
+                                OssLicensesMenuActivity::class.java,
+                            ),
+                        )
+                    } catch (e: Exception) {
+                        Timber.e(e, "Failed to open OSS licenses screen")
+                        Toast.makeText(
                             context,
-                            OssLicensesMenuActivity::class.java,
-                        ),
-                    )
+                            "Unable to open licenses",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
                 },
             )
 
