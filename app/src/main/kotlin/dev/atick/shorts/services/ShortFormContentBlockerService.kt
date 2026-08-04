@@ -133,6 +133,12 @@ class ShortFormContentBlockerService : AccessibilityService() {
         Timber.w("ShortFormContentBlockerService interrupted")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("ShortFormContentBlockerService destroyed")
+        job.cancel()
+    }
+
     /**
      * Handles detection of short-form content by performing a back navigation action.
      *

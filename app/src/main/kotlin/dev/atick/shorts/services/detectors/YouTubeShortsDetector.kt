@@ -73,6 +73,7 @@ class YouTubeShortsDetector : ShortFormContentDetector {
             }
         }
 
+        Timber.v("[YouTube] No Shorts detected ($nodeCount nodes scanned)")
         return false
     }
 }

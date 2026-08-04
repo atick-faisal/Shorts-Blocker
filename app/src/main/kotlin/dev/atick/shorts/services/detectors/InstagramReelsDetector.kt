@@ -93,6 +93,7 @@ class InstagramReelsDetector : ShortFormContentDetector {
             Timber.i("[Instagram] ✓ User is actively watching Media in Fullscreen")
             return true
         }
+        Timber.v("[Instagram] No Reels detected ($nodesScanned nodes scanned, feedTabCount=$feedTabCount)")
         return false
     }
 }
