@@ -1,10 +1,10 @@
 [versions]
-agp = "9.3.1"
+agp = "9.3.2"
 kotlin = "2.4.10"
 coreKtx = "1.19.0"
 lifecycleRuntimeKtx = "2.11.0"
 activityCompose = "1.13.0"
-composeBom = "2026.06.01"
+composeBom = "2026.08.00"
 material3Expressive = "1.5.0-alpha25"
 dokka = "2.2.0"
 dokkaMermaid = "0.6.0"
@@ -13,8 +13,8 @@ googleOssPlugin = "0.13.0"
 androidxDataStore = "1.2.1"
 timber = "5.0.1"
 gmsPlugin = "4.5.0"
-firebaseBom = "34.17.0"
-firebaseCrashlyticsPlugin = "3.0.7"
+firebaseBom = "34.18.0"
+firebaseCrashlyticsPlugin = "3.0.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
