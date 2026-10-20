@@ -15,7 +15,7 @@
  */
 
 initscript {
-    val spotlessVersion = "8.0.0"
+    val spotlessVersion = "8.10.4"
 
     repositories {
         mavenCentral()
@@ -41,7 +41,7 @@ rootProject {
                     ),
                 ).customRuleSets(
                     listOf(
-                        "io.nlopez.compose.rules:ktlint:0.4.27",
+                        "io.nlopez.compose.rules:ktlint:0.6.8",
                     ),
                 )
                 licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
