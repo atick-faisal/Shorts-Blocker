@@ -68,6 +68,7 @@ class InstagramReelsDetector : ShortFormContentDetector {
         stack.add(rootNode)
         var nodesScanned = 0
         var feedTabCount = 0
+        var isDirectMessage = false
 
         while (stack.isNotEmpty() && nodesScanned < 10) {
             val n = stack.removeFirst()
@@ -84,12 +85,17 @@ class InstagramReelsDetector : ShortFormContentDetector {
                 return true
             }
 
+            if (id != null && ("direct_" in id || "thread_" in id)) {
+                Timber.d("[Instagram] Direct message detected, skipping")
+                isDirectMessage = true
+            }
+
             for (i in 0 until n.childCount) {
                 n.getChild(i)?.let { stack.add(it) }
             }
         }
 
-        if (feedTabCount == 0) {
+        if (feedTabCount == 0 && !isDirectMessage) {
             Timber.i("[Instagram] ✓ User is actively watching Media in Fullscreen")
             return true
         }
