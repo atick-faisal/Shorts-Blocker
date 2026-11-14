@@ -15,7 +15,7 @@
  */
 
 initscript {
-    val spotlessVersion = "8.10.4"
+    val spotlessVersion = "8.11.0"
 
     repositories {
         mavenCentral()
